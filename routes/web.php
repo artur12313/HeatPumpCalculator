@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\FuelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware([
@@ -22,7 +24,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
+
+Route::get('/report-new', [ReportController::class, 'index'])->name('report-new');
+
+Route::get('/fuels', [FuelController::class, 'index'])->name('fuels');
 });
