@@ -29,4 +29,7 @@ Route::get('/dashboard', function () { return view('dashboard');})->name('dashbo
 Route::get('/report-new', [ReportController::class, 'index'])->name('report-new');
 
 Route::get('/fuels', [FuelController::class, 'index'])->name('fuels');
+Route::get('/fuels/new', [FuelController::class, 'create'])->name('fuels-new');
+Route::post('/fuels', [FuelController::class, 'store']);
+Route::get('/fuels/edit/{id}', [FuelController::class, 'edit']);
 });
