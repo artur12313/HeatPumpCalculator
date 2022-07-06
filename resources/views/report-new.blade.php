@@ -118,11 +118,34 @@
                         </select>
                     </div>
                 </div>
+                <div>
+                    <x-jet-label for="fuel" value="{{ __('Obecnie stosowane paliwo do ogrzewania') }}" />
+                    <select id="fuel" name="fuel">
+                        @foreach($fuel as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             
             <div class="footer-form mt-4 flex justify-end">
-                <button class="bg-sky-600/75 hover:bg-sky-600/50 text-white py-1 px-4 text-lg">Zapisz</button>
+                <button type="submit" class="bg-sky-600/75 hover:bg-sky-600/50 text-white py-1 px-4 text-lg">Zapisz</button>
             </div>
         </form>
+        <div class="flex justify-start">
+        <button class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger">Podgląd</button>
+        </div>
+        <div id="preview" class="mt-4">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                {{ __('Podgląd') }}
+            </h2>
+
+            <div>
+                <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                    {{ __('współczynnik strat ciepła wg. wytycznych VDI 2067') }}
+                </h3>
+                    <x-jet-input id="" class="block mt-1 w-full md:w-1/5" type="text" disabled/>
+            </div>
+        </div>
     </div>
 </x-app-layout>
