@@ -23,7 +23,7 @@
     </div>
 
     @endif
-    <form class="w-full max-w-lg mx-auto" action="/fuels" method="POST">
+    <form class="w-full max-w-lg mx-auto" action="{{ route('fuels.store') }}" method="POST">
       @csrf
       <div>
         <div class="mt-4 flex justify-between items-center gap-2">

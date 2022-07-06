@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Lista paliw do ogrzewania') }}
             </h2>
-            <a href="/fuels/new" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nowe paliwo</a>
+            <a href="{{ route('fuels.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nowe paliwo</a>
         </div>
     
     </x-slot>
@@ -50,28 +50,18 @@
             @foreach($fuels as $item)
           <tr class="bg-gray-100 border-b">
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{$loop->iteration}}</td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-              {{$item->name}}
-            </td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-              {{$item->price}}zł
-            </td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-              {{$item->caloricValue}}
-            </td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {{$item->unit}}
-            </td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {{$item->efficiency}}%
-            </td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{$item->name}}</td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{$item->comma_price}}zł</td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{$item->caloricValue}}</td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{$item->unit}}</td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{$item->efficiency}}%</td>
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex gap-2">
-                <a href="/fuels/edit/{{$item->id}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">                    
-                    Edytuj
-                </a>
-                <a href="#" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">                    
-                    Usuń
-                </a>
+                <a href="{{route('fuels.edit', $item->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edytuj</a>
+                <form action="{{route('fuels.destroy', $item->id)}}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Usuń</button>
+                </form>
             </td>
           </tr>
           @endforeach

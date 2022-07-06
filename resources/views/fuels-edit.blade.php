@@ -23,8 +23,9 @@
     </div>
 
     @endif
-    <form class="w-full max-w-lg mx-auto" action="/fuels" method="POST">
+    <form class="w-full max-w-lg mx-auto" action="{{route('fuels.update', $fuel->id)}}" method="POST">
       @csrf
+      @method('PUT')
       <div>
         <div class="mt-4 flex justify-between items-center gap-2">
           <div class="md:w-1/2">
@@ -52,7 +53,7 @@
           </div>
           <div class="md:w-1/3">
             <x-jet-label for="price" value="{{ __('Cena (zł/kg)') }}"/>
-            <x-jet-input id="price" class="block mt-1 w-full" type="text" name="price" required autofocus value="{{$fuel->comma_price}}"/>
+            <input id="price" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" type="text" name="price" required autofocus value="{{$fuel->comma_price}}"/>
           </div>
         </div>
       </div>

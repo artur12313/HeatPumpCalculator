@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('fuels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('caloricValue');
+            $table->integer('caloricValue')->nullable();
             $table->double('price', 10, 2);
             $table->integer('efficiency');
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

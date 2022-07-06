@@ -24,12 +24,18 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
+Route::get('/', function () { return view('dashboard');});
 
-Route::get('/report-new', [ReportController::class, 'index'])->name('report-new');
+Route::get('/report-new', [ReportController::class, 'index']);
 
-Route::get('/fuels', [FuelController::class, 'index'])->name('fuels');
-Route::get('/fuels/new', [FuelController::class, 'create'])->name('fuels-new');
-Route::post('/fuels', [FuelController::class, 'store']);
-Route::get('/fuels/edit/{id}', [FuelController::class, 'edit']);
+Route::resource('fuels', FuelController::class)->only([
+    'index', 'create', 'store', 'update', 'destroy', 'edit'
+]);
+
+// Route::get('/fuels', [FuelController::class, 'index']);
+// Route::get('/fuels/new', [FuelController::class, 'create']);
+// Route::post('/fuels', [FuelController::class, 'store']);
+// Route::get('/fuels/{id}/edit', [FuelController::class, 'edit']);
+// Route::put('/fuels/{id}', [FuelController::class, 'update']);
+// Route::delete('/fuels/{id}', [FuelController::class, 'destroy']);
 });

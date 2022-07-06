@@ -40,13 +40,38 @@ class FuelController extends Controller
         $fuel->unit = $request->unit;
         $fuel->save();
 
-        return redirect('fuels')->with('success', 'Pomyślnie dodano');
+        return redirect()->route('fuels.index')->with('success', 'Pomyślnie dodano');
     }
 
     public function edit($id)
     {
-        $fuel = Fuel::findOrFail($id);
+        $fuel = Fuel::find($id);
 
         return view('fuels-edit')->with(['fuel' => $fuel]);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $fuel = Fuel::find($id);
+        $fuel->name = $request->name;
+        $fuel->efficiency = $request->efficiency;
+        $fuel->caloricValue = $request->caloricValue;
+        $exploded = explode(',', $request->price);
+        if(count($exploded) > 1) {
+            $fuel->price = $exploded[0] . '.' . $exploded[1];
+        } else {
+            $fuel->price = $request->price;
+        }
+        $fuel->unit = $request->unit;
+        $fuel->update();
+
+        return redirect()->route('fuels.index')->with(['success', 'Pomyślnie zaktualizowano']);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        Fuel::destroy($id);
+        return redirect()->route('fuels.index')->with(['success', 'Pomyślnie usunięto']);
     }
 }
