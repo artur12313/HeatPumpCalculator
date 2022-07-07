@@ -12,8 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex flex items-center">
-                    <x-jet-nav-link href="/report-new" :active="request()->routeIs('report-new')">
+                    <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('report-new')">
                         {{ __('Nowy raport') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('report-new')">
+                        {{ __('Kalkulator kredytowy') }}
                     </x-jet-nav-link>
                     <x-jet-dropdown width="60">
                         <x-slot name="trigger">

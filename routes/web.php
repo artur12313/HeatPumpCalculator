@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FuelController;
+use App\Http\Controllers\CalculatorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +27,8 @@ Route::middleware([
 ])->group(function () {
 Route::get('/', function () { return view('dashboard');});
 
-Route::get('/report-new', [ReportController::class, 'index']);
+Route::resource('reports', ReportController::class);
+Route::resource('calculator', CalculatorController::class);
 
 Route::resource('fuels', FuelController::class)->only([
     'index', 'create', 'store', 'update', 'destroy', 'edit'

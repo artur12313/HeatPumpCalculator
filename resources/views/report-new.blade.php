@@ -44,11 +44,11 @@
             <div class="flex flex-row mt-4 gap-4 justify-center">
                 <div class="w-full">
                     <x-jet-label for="heatingArea" value="{{ __('Powierzchnia ogrzewania w m2') }}" />
-                    <x-jet-input id="heatingArea" class="block mt-1 w-full" type="text" name="heatingArea" required autofocus />
+                    <x-jet-input id="heatingArea" class="block mt-1 w-full" type="number" name="heatingArea" onchange="kubatura()" required autofocus />
                 </div>
                 <div class="w-full">
                     <x-jet-label for="roomHeight" value="{{ __('Wysokość pomieszczeń w cm') }}" />
-                    <x-jet-input id="roomHeight" class="block mt-1 w-full" type="text" name="roomHeight" required autofocus />
+                    <x-jet-input id="roomHeight" class="block mt-1 w-full" type="number" name="roomHeight" onchange="kubatura()" required autofocus />
                 </div>
             </div>
             <div class="grid grid-cols-2">
@@ -136,42 +136,42 @@
                     </select>
                 </div>
             </div>
-            
-            <div class="footer-form mt-4 flex justify-end">
+            <div id="preview" class="mt-4">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                    {{ __('Podgląd') }}
+                </h2>
+    
+                <div class="mt-4">
+                    <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                        {{ __('współczynnik strat ciepła wg. wytycznych VDI 2067') }}
+                    </h3>
+                        <x-jet-input id="heatLosse" name="heatLosse" class="block mt-1 w-full md:w-1/6" type="text" disabled/>
+                </div>
+                <div class="mt-4  w-full md:w-1/4">
+                    <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                        {{ __('Założone zapotrzebowanie na ciepło') }}
+                    </h3>
+                        <div class="flex justify-between w-full gap-4">
+                            <div>
+                                <x-jet-label for="heatDemand1" value="{{ __('W/m³ (kubik)') }}" />
+                                <x-jet-input id="heatDemand1" name="heatDemand1" class="block mt-1 w-full" type="text" disabled/>
+                            </div>
+                            <div>
+                                <x-jet-label for="heatDemand2" value="{{ __('W/m² (1 m² powierzchni)') }}" />
+                                <x-jet-input id="heatDemand2" name="heatDemand2" class="block mt-1 w-full" type="text" disabled/>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+            <div class="footer-form my-4 flex justify-between container mx-auto">
+                <button type="button" class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger">Podgląd</button>
                 <button type="submit" class="bg-sky-600/75 hover:bg-sky-600/50 text-white py-1 px-4 text-lg">Zapisz</button>
             </div>
         </form>
         <div class="flex justify-start">
-        <button class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger">Podgląd</button>
         </div>
-        <div id="preview" class="mt-4">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
-                {{ __('Podgląd') }}
-            </h2>
-
-            <div class="mt-4">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
-                    {{ __('współczynnik strat ciepła wg. wytycznych VDI 2067') }}
-                </h3>
-                    <x-jet-input id="heatLosse" name="heatLosse" class="block mt-1 w-full md:w-1/6" type="text" disabled/>
-            </div>
-            <div class="mt-4  w-full md:w-1/4">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
-                    {{ __('Założone zapotrzebowanie na ciepło') }}
-                </h3>
-                    <div class="flex justify-between w-full gap-4">
-                        <div>
-                            <x-jet-label for="heatDemand1" value="{{ __('W/m³ (kubik)') }}" />
-                            <x-jet-input id="heatDemand1" name="heatDemand1" class="block mt-1 w-full" type="text" disabled/>
-                        </div>
-                        <div>
-                            <x-jet-label for="heatDemand2" value="{{ __('W/m² (1 m² powierzchni)') }}" />
-                            <x-jet-input id="heatDemand2" name="heatDemand2" class="block mt-1 w-full" type="text" disabled/>
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </div>
+        
 </x-app-layout>
 <script>
     var content = document.getElementById('preview');
@@ -208,6 +208,18 @@
         let heatLosse = document.getElementById('heatLosse');
         operation = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
         heatLosse.value = operation;
+    }
+
+    function kubatura()
+    {
+        let heatingArea = Number(document.getElementById('heatingArea').value == "" ? 0 : document.getElementById('heatingArea').value);
+        let roomHeight = Number(document.getElementById('roomHeight').value == "" ? 0 : document.getElementById('roomHeight').value);
+
+        let kubatura = heatingArea * (roomHeight / 100);
+
+        console.log(kubatura);
+
+        return kubatura
     }
 
     function heatDemand()
