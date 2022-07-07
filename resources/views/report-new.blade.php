@@ -55,7 +55,8 @@
                 <div class="flex flex-col mt-4 gap-4">
                     <div>
                         <x-jet-label for="buildingInsulation" value="{{ __('Deklarowana izolacja budynku') }}" />
-                        <select id="buildingInsulation" name="buildingInsulation">
+                        <select id="buildingInsulation" name="buildingInsulation" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="0">Ocieplenie styropian / wełna 5cm</option>
                             <option value="0.3">Ocieplenie styropian / wełna 10cm</option>
                             <option value="0.6">Ocieplenie styropian / wełna 15cm</option>
@@ -65,7 +66,8 @@
                     </div>
                     <div>
                         <x-jet-label for="windows" value="{{ __('Okna') }}" />
-                        <select id="windows" name="windows">
+                        <select id="windows" name="windows" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="0">Okna skrzyniowe 1 szybowe</option>
                             <option value="0.4">Okna ciepłe 2 szybowe</option>
                             <option value="0.6">Okna ciepłe 3 szybowe</option>
@@ -73,14 +75,16 @@
                     </div>
                     <div>
                         <x-jet-label for="glazing" value="{{ __('Przeszklenia') }}" />
-                        <select id="glazing" name="glazing">
+                        <select id="glazing" name="glazing" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="0">Duże przeszklenia</option>
                             <option value="0.4">Standardowe przeszklenia</option>
                         </select>
                     </div>
                     <div>
-                        <x-jet-label for="glazing" value="{{ __('Strop') }}" />
-                        <select id="glazing" name="glazing">
+                        <x-jet-label for="ceiling" value="{{ __('Strop') }}" />
+                        <select id="ceiling" name="ceiling" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="0.4">Izolowany strop</option>
                             <option value="0">Nie Izolowany strop</option>
                         </select>
@@ -89,28 +93,32 @@
                 <div class="mt-4 gap-4 flex flex-col">
                     <div>
                         <x-jet-label for="floor" value="{{ __('Podłoga') }}" />
-                        <select id="floor" name="floor">
+                        <select id="floor" name="floor" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="0.4">Izolowana podłoga</option>
                             <option value="0">Nie Izolowana podłoga</option>
                         </select>
                     </div>
                     <div>
                         <x-jet-label for="doors" value="{{ __('Drzwi') }}" />
-                        <select id="doors" name="doors">
+                        <select id="doors" name="doors" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="0.4">Izolowane drzwi wejściowe</option>
                             <option value="0">Nie Izolowane drzwi wejściowe</option>
                         </select>
                     </div>
                     <div>
                         <x-jet-label for="heaters" value="{{ __('Grzejniki') }}" />
-                        <select id="heaters" name="heaters">
+                        <select id="heaters" name="heaters" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="0.5">Grzejniki niskotemperaturowe</option>
                             <option value="0">Grzejniki wysokotemperaturowe</option>
                         </select>
                     </div>
                     <div>
                         <x-jet-label for="minimalTemperature" value="{{ __('Minimalna Temperatura pracy pompy bez wspomagania') }}" />
-                        <select id="minimalTemperature" name="minimalTemperature">
+                        <select id="minimalTemperature" name="minimalTemperature" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                             <option value="1">-7</option>
                             <option value="1.3">-12</option>
                             <option value="1.6">-15</option>
@@ -120,7 +128,8 @@
                 </div>
                 <div>
                     <x-jet-label for="fuel" value="{{ __('Obecnie stosowane paliwo do ogrzewania') }}" />
-                    <select id="fuel" name="fuel">
+                    <select id="fuel" name="fuel" onchange="getvalue()">
+                            <option value="">-Wybierz-</option>
                         @foreach($fuel as $item)
                             <option value="{{$item->id}}">{{$item->name}}</option>
                         @endforeach
@@ -140,12 +149,69 @@
                 {{ __('Podgląd') }}
             </h2>
 
-            <div>
+            <div class="mt-4">
                 <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
                     {{ __('współczynnik strat ciepła wg. wytycznych VDI 2067') }}
                 </h3>
-                    <x-jet-input id="" class="block mt-1 w-full md:w-1/5" type="text" disabled/>
+                    <x-jet-input id="heatLosse" name="heatLosse" class="block mt-1 w-full md:w-1/6" type="text" disabled/>
+            </div>
+            <div class="mt-4  w-full md:w-1/4">
+                <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                    {{ __('Założone zapotrzebowanie na ciepło') }}
+                </h3>
+                    <div class="flex justify-between w-full gap-4">
+                        <div>
+                            <x-jet-label for="heatDemand1" value="{{ __('W/m³ (kubik)') }}" />
+                            <x-jet-input id="heatDemand1" name="heatDemand1" class="block mt-1 w-full" type="text" disabled/>
+                        </div>
+                        <div>
+                            <x-jet-label for="heatDemand2" value="{{ __('W/m² (1 m² powierzchni)') }}" />
+                            <x-jet-input id="heatDemand2" name="heatDemand2" class="block mt-1 w-full" type="text" disabled/>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+<script>
+    var content = document.getElementById('preview');
+        content.style.display = "block";
+
+    var previewTrigger = document.getElementById('previewTrigger').addEventListener("click", function () {
+        if(content.style.display == 'none')
+        {
+            content.style.display = "block";
+        }else{
+            content.style.display = "none";
+        }
+    });
+    function getvalue()
+    {
+        if(event.target.value != "")
+        {
+            let buildingInsulation = Number(document.getElementById('buildingInsulation').value == "" ? 0 : document.getElementById('buildingInsulation').value);
+            let windows = Number(document.getElementById('windows').value == "" ? 0 : document.getElementById('windows').value);
+            let glazing = Number(document.getElementById('glazing').value == "" ? 0 : document.getElementById('glazing').value);
+            let ceiling = Number(document.getElementById('ceiling').value == "" ? 0 : document.getElementById('ceiling').value);
+            let floor = Number(document.getElementById('floor').value == "" ? 0 : document.getElementById('floor').value);
+            let doors = Number(document.getElementById('doors').value == "" ? 0 : document.getElementById('doors').value);
+            let heaters = Number(document.getElementById('heaters').value == "" ? 0 : document.getElementById('heaters').value);
+            
+            return heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters);
+        }
+    }
+
+    function heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters)
+    {
+        let number = parseInt(4);
+        let operation = 0;
+        let heatLosse = document.getElementById('heatLosse');
+        operation = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
+        heatLosse.value = operation;
+    }
+
+    function heatDemand()
+    {
+        //TODO
+    }
+</script>
