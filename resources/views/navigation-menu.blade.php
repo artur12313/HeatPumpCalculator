@@ -12,10 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex flex items-center">
-                    <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('report-new')">
+                    <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('reports.index')">
                         {{ __('Nowy raport') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('report-new')">
+                    <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('calculator.index')">
                         {{ __('Kalkulator kredytowy') }}
                     </x-jet-nav-link>
                     <x-jet-dropdown width="60">
