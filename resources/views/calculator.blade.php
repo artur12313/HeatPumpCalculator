@@ -7,7 +7,7 @@
         </div>
     
     </x-slot>
-    <div class="container mx-auto">
+    <div class="container mx-auto" id="calculatorForm">
     @if ($errors->any())
     <div role="alert">
       <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
@@ -60,10 +60,31 @@
 
       function avgInstallment()
       {
-        let monthlyInterest = Number(document.getElementById('monthlyInterest').value == "" ? 0 : document.getElementById('monthlyInterest').value);
-        let terms = Number(document.getElementById('terms').value == "" ? 0 : document.getElementById('terms').value);
-        let amount = Number(document.getElementById('amount').value == "" ? 0 : document.getElementById('amount').value);
+        let oprocentowanie = Number(document.getElementById('interest').value == "" ? 0 : document.getElementById('interest').value) / 100;
+        let liczba_rat = Number(document.getElementById('terms').value == "" ? 0 : document.getElementById('terms').value);
+        let kwota_kredytu = Number(document.getElementById('amount').value == "" ? 0 : document.getElementById('amount').value);
 
+        let rata_kredytu = kwota_kredytu * (((oprocentowanie / 12) * Math.pow((1 + oprocentowanie / 12),liczba_rat)) / (Math.pow((1 + (oprocentowanie / 12)), liczba_rat) - 1));
+        console.log("rata: " + rata_kredytu);
+
+        let odestki = (oprocentowanie / 12) * kwota_kredytu;
+        console.log("odsetki: " + odestki);
+
+        let kapitał = rata_kredytu - odestki;
+        console.log("kapitał: " + kapitał);
+
+        let kredytWartosc = kwota_kredytu;
+        var i = 0;
+
+        while(kredytWartosc > 0)
+        {
+          ++i;
+          let bilans = kredytWartosc * (((oprocentowanie / 12) * Math.pow((1 + oprocentowanie / 12),liczba_rat)) / (Math.pow((1 + (oprocentowanie / 12)), liczba_rat) - 1));
+          let rata = kredytWartosc - bilans;
+          let odsetkiWartosc = (oprocentowanie / 12) * kredytWartosc;
+          let kapitałWartosc = kredytWartosc - odestki;
+          console.log(i + ". " + "rata: " + rata + " kapitał: " + kapitałWartosc + " odsetki: " + odsetkiWartosc);
+        }
       }
     </script>
     <?php 
