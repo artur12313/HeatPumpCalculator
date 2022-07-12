@@ -22,8 +22,8 @@
       </div>
     </div>
     @endif
-    <form action="{{route('calculator.createPDF')}}" method="POST">
-      @method('POST')
+    <form action="{{route('calculator.createPDF')}}" method="GET">
+      @method('GET')
       <div class="flex gap-4 w-full">
         <div class="md:w-1/3 mt-4">
           <x-jet-label for="interest" value="{{ __('Roczna stopa procentowa pożyczki/kredytu (%)') }}" />
@@ -173,7 +173,6 @@
         console.log("kapitał malejąca rata: " + kapital_malejacej_raty);
         let bilans = 0;
         let bilans_mal = 0;
-        var i = 1;
         // console.log("bilans przed " + bilans);
         let rataWartosc = kwota_kredytu;
         let rataWartosc_mal = kwota_kredytu;
@@ -209,11 +208,11 @@
           sum = ((bill / 1000) - bilans_mal);
           
           // console.log(i + ". " + "rata: " + (stala_rata_kredytu).toFixed(2) + " kapitał: " + (kapitałWartosc).toFixed(2) + " odsetki: " + (odsetkiWartosc).toFixed(2));
+          ++i;
           termsBody.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">' + i +'</td><td class="py-2 text-center border-r">' + (stala_rata_kredytu).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (kapitałWartosc).toFixed(2) + 'zł</td><td class="py-2 text-center">' + (odsetkiWartosc).toFixed(2) +'zł</td></tr>';
           // console.log("pozostało do spłaty: " + (rataWartosc).toFixed(2));
           decTerms.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">' + i +'</td><td class="py-2 text-center border-r">' + (bilans_mal).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (kapitałWartosc_mal).toFixed(2) + 'zł</td><td class="py-2 text-center">' + (odsetkiWartosc_mal).toFixed(2) +'zł</td></tr>';
           energyBody.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">'+ bill + 'zł</td><td class="py-2 text-center border-r">'+ (bilans_mal).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (sum).toFixed(2) + 'zł</td></tr>'
-          i++;
         }
           console.log(raty_stałe);
           console.log(raty_mal);

@@ -28,8 +28,10 @@ Route::middleware([
 Route::get('/', function () { return view('dashboard');});
 
 Route::resource('reports', ReportController::class);
-Route::resource('calculator', CalculatorController::class);
-Route::post('/calculator/calc', [CalculatorController::class, 'createPDF'])->name('calculator.createPDF');
+Route::resource('calculator', CalculatorController::class)->only([
+    'index'
+]);
+Route::get('/calculator/calc', [CalculatorController::class, 'createPDF'])->name('calculator.createPDF');
 
 Route::resource('fuels', FuelController::class)->only([
     'index', 'create', 'store', 'update', 'destroy', 'edit'
