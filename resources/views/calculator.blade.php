@@ -48,8 +48,6 @@
           <x-jet-input id="amount" class="block mt-1 w-full" type="number" name="amount" step="any" required autofocus onchange="avgInstallment()"/>
         </div>
       </div>
-      <input type="hidden" id="ratyStale" name="ratyStale"/>
-      <input type="hidden" id="ratyMal" name="ratyMal"/>
       <div class="footer-form mt-4 flex justify-between">
       <button type="button" class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger">Podgląd</button>
         <button type="submit" class="bg-sky-600/75 hover:bg-sky-600/50 text-white py-1 px-4 text-lg">Zapisz</button>
@@ -156,8 +154,6 @@
         var energyBody = document.getElementById('energyBody');
         let liczba_rat = Number(document.getElementById('terms').value == "" ? 0 : document.getElementById('terms').value);
         let kwota_kredytu = Number(document.getElementById('amount').value == "" ? 0 : document.getElementById('amount').value);
-        var termsBody = document.getElementById('TermsBody');
-        var decTerms = document.getElementById('decTermsBody');
         let stala_rata_kredytu = kwota_kredytu * (((oprocentowanie / 12) * Math.pow((1 + oprocentowanie / 12),liczba_rat)) / (Math.pow((1 + (oprocentowanie / 12)), liczba_rat) - 1));
         console.log("rata: " + stala_rata_kredytu);
         let malejaca_rata_kredytu = ((kwota_kredytu / liczba_rat) + (oprocentowanie / 12) * kwota_kredytu);
