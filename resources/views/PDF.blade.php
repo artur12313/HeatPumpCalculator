@@ -22,9 +22,9 @@
                   @foreach ($raty_stale as $row => $innerArray)
                     <tr style="border-bottom: 1px solid black;">
                       <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $loop->iteration }}</td>
-                      <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $innerArray['stala_rata_kredytu']}}zł</td>
-                      <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $innerArray['odsetkiWartosc']}}zł</td>
-                      <td style="padding: .5rem 0; text-align: center;">{{ $innerArray['kapitalWartosc']}}zł</td>
+                      <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($innerArray['stala_rata_kredytu'], 2, ',', '')}}zł</td>
+                      <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($innerArray['odsetkiWartosc'], 2, ',', '')}}zł</td>
+                      <td style="padding: .5rem 0; text-align: center;">{{ number_format($innerArray['kapitalWartosc'], 2, ',', '')}}zł</td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -49,9 +49,9 @@
                   @foreach ($raty_mal as $row => $innerArray)
                   <tr style="border-bottom: 1px solid black;">
                     <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $loop->iteration }}</td>
-                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $innerArray['bilans_mal']}}zł</td>
-                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $innerArray['kapitałWartosc_mal']}}zł</td>
-                    <td style="padding: .5rem 0; text-align: center;">{{ $innerArray['odsetkiWartosc_mal']}}zł</td>
+                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($innerArray['bilans_mal'],2 , ',', '')}}zł</td>
+                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($innerArray['kapitałWartosc_mal'],2, ',', '')}}zł</td>
+                    <td style="padding: .5rem 0; text-align: center;">{{ number_format($innerArray['odsetkiWartosc_mal'], 2, ',', '')}}zł</td>
                   </tr>
                 @endforeach
                 </tbody>
@@ -74,9 +74,9 @@
                 <tbody id="energyBody" style="border:1px solid black;">
                   @foreach($energy as $row => $item)
                   <tr style="border-bottom: 1px solid black;">
-                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $item['bill']}}zł</td>
-                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $item['bilans_mal']}}zł</td>
-                    <td style="padding: .5rem 0; text-align: center;">{{ $item['sum']}}zł</td>
+                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($item['bill'], 2, ',', '')}}zł</td>
+                    <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($item['bilans_mal'], 2, ',', '') }}zł</td>
+                    <td style="padding: .5rem 0; text-align: center;">{{ number_format($item['sum'],2 , ',', '')}}zł</td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -84,7 +84,7 @@
                   <tr>
                     <th style="padding: .5rem 0;"></th>
                     <th style="padding: .5rem 0;">saldo:</th>
-                    <th style="padding: .5rem 0;">{{ $saldo }}</th>
+                    <th style="padding: .5rem 0;">{{ number_format($saldo, 2, ',', '') }}zł</th>
                   </tr>
                 </tfoot>
               </table>
