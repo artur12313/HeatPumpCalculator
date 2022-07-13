@@ -152,6 +152,7 @@
         let oprocentowanie = Number(document.getElementById('interest').value == "" ? 0 : document.getElementById('interest').value) / 100;
         let bill = Number(document.getElementById('bill').value == "" ? 0 : document.getElementById('bill').value);
         var energyBody = document.getElementById('energyBody');
+        var termsBody = document.getElementById('TermsBody');
         let liczba_rat = Number(document.getElementById('terms').value == "" ? 0 : document.getElementById('terms').value);
         let kwota_kredytu = Number(document.getElementById('amount').value == "" ? 0 : document.getElementById('amount').value);
         let stala_rata_kredytu = kwota_kredytu * (((oprocentowanie / 12) * Math.pow((1 + oprocentowanie / 12),liczba_rat)) / (Math.pow((1 + (oprocentowanie / 12)), liczba_rat) - 1));
