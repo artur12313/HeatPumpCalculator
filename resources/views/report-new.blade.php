@@ -89,6 +89,15 @@
                             <option value="0">Nie Izolowany strop</option>
                         </select>
                     </div>
+                    <div>
+                        <x-jet-label for="fuel" value="{{ __('Obecnie stosowane paliwo do ogrzewania') }}" />
+                        <select id="fuel" name="fuel" onchange="getvalue()">
+                                <option value="">-Wybierz-</option>
+                            @foreach($fuel as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="mt-4 gap-4 flex flex-col">
                     <div>
@@ -125,15 +134,15 @@
                             <option value="1.8">-20</option>
                         </select>
                     </div>
-                </div>
-                <div>
-                    <x-jet-label for="fuel" value="{{ __('Obecnie stosowane paliwo do ogrzewania') }}" />
-                    <select id="fuel" name="fuel" onchange="getvalue()">
-                            <option value="">-Wybierz-</option>
-                        @foreach($fuel as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
-                        @endforeach
-                    </select>
+                    <div>
+                        <x-jet-label for="pump" value="{{ __('Proponowana pompa ciepła') }}" />
+                        <select id="pump" name="pump">
+                                <option value="">-Wybierz-</option>
+                            @foreach($pump as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <div id="preview" class="mt-4">

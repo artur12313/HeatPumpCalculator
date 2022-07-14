@@ -35,6 +35,9 @@
                                 <x-jet-dropdown-link href="{{ route('fuels.index') }}">
                                     {{ __('Paliwa') }}
                                 </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('pump.index') }}">
+                                    {{ __('Pompy') }}
+                                </x-jet-dropdown-link>
                             </div>
                         </x-slot>
                     </x-jet-dropdown>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\PumpController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,8 @@ Route::get('/calculator/calc', [CalculatorController::class, 'createPDF'])->name
 Route::resource('fuels', FuelController::class)->only([
     'index', 'create', 'store', 'update', 'destroy', 'edit'
 ]);
+
+Route::resource('pump', PumpController::class);
 
 // Route::get('/fuels', [FuelController::class, 'index']);
 // Route::get('/fuels/new', [FuelController::class, 'create']);
