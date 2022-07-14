@@ -23,8 +23,8 @@
                     <tr style="border-bottom: 1px solid black;">
                       <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ $loop->iteration }}</td>
                       <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($innerArray['stala_rata_kredytu'], 2, ',', '')}}zł</td>
-                      <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($innerArray['odsetkiWartosc'], 2, ',', '')}}zł</td>
-                      <td style="padding: .5rem 0; text-align: center;">{{ number_format($innerArray['kapitalWartosc'], 2, ',', '')}}zł</td>
+                      <td style="border-right: 1px solid black; padding: .5rem 0; text-align: center;">{{ number_format($innerArray['kapitalWartosc'], 2, ',', '')}}zł</td>
+                      <td style="padding: .5rem 0; text-align: center;">{{ number_format($innerArray['odsetkiWartosc'], 2, ',', '')}}zł</td>
                     </tr>
                   @endforeach
                 </tbody>

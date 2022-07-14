@@ -155,65 +155,42 @@
         var termsBody = document.getElementById('TermsBody');
         let liczba_rat = Number(document.getElementById('terms').value == "" ? 0 : document.getElementById('terms').value);
         let kwota_kredytu = Number(document.getElementById('amount').value == "" ? 0 : document.getElementById('amount').value);
+        
         let stala_rata_kredytu = kwota_kredytu * (((oprocentowanie / 12) * Math.pow((1 + oprocentowanie / 12),liczba_rat)) / (Math.pow((1 + (oprocentowanie / 12)), liczba_rat) - 1));
-        console.log("rata: " + stala_rata_kredytu);
         let malejaca_rata_kredytu = ((kwota_kredytu / liczba_rat) + (oprocentowanie / 12) * kwota_kredytu);
-        console.log("pierwsza malejąca rata kredytu: " + malejaca_rata_kredytu);
 
         let odsetki = (oprocentowanie / 12) * kwota_kredytu;
-        console.log("odsetki: " + odsetki);
-        console.log("oprocentowanie " + oprocentowanie);
+
         let kapital_stalej_raty = stala_rata_kredytu - odsetki;
-        console.log("kapitał stała rata: " + kapital_stalej_raty);
         let kapital_malejacej_raty = malejaca_rata_kredytu - odsetki;
 
-        console.log("kapitał malejąca rata: " + kapital_malejacej_raty);
-        let bilans = 0;
-        let bilans_mal = 0;
-        // console.log("bilans przed " + bilans);
         let rataWartosc = kwota_kredytu;
         let rataWartosc_mal = kwota_kredytu;
-        var raty_stałe = [];
-        var raty_mal = [];
-        let odsetkiWartosc = 0;
-        let odsetkiWartosc_mal = 0;
-        let kapitałWartosc = 0;
-        let kapitałWartosc_mal = 0;
-        let sum = 0
+        let bilans = stala_rata_kredytu + (oprocentowanie / 12) * rataWartosc;;
+        let bilans_mal =((kwota_kredytu / liczba_rat) + (oprocentowanie / 12) * rataWartosc_mal);
+        let odsetkiWartosc = (oprocentowanie / 12) * rataWartosc;
+        let odsetkiWartosc_mal = (oprocentowanie / 12) * rataWartosc_mal;
+        let kapitałWartosc = (stala_rata_kredytu - odsetkiWartosc);
+        let kapitałWartosc_mal = (stala_rata_kredytu - odsetkiWartosc_mal);
+        let sum = 0;
 
         while(rataWartosc >= 0)
         {
+          ++i;
+          termsBody.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">' + i +'</td><td class="py-2 text-center border-r">' + (stala_rata_kredytu).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (kapitałWartosc).toFixed(2) + 'zł</td><td class="py-2 text-center">' + (odsetkiWartosc).toFixed(2) +'zł</td></tr>';
+          decTerms.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">' + i +'</td><td class="py-2 text-center border-r">' + (bilans_mal).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (kapitałWartosc_mal).toFixed(2) + 'zł</td><td class="py-2 text-center">' + (odsetkiWartosc_mal).toFixed(2) +'zł</td></tr>';
+          energyBody.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">'+ bill + 'zł</td><td class="py-2 text-center border-r">'+ (bilans_mal).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (sum).toFixed(2) + 'zł</td></tr>'
+          
           bilans = stala_rata_kredytu + (oprocentowanie / 12) * rataWartosc;
           bilans_mal = ((kwota_kredytu / liczba_rat) + (oprocentowanie / 12) * rataWartosc_mal);
-          // console.log("bilans wtrakcie" + bilans);
-          // let rata = kapitałWartosc - bilans;
           rataWartosc -= (kwota_kredytu / liczba_rat);
           rataWartosc_mal -= (kwota_kredytu / liczba_rat);
           odsetkiWartosc = (oprocentowanie / 12) * rataWartosc;
           odsetkiWartosc_mal = (oprocentowanie / 12) * rataWartosc_mal;
           kapitałWartosc = (stala_rata_kredytu - odsetkiWartosc);
           kapitałWartosc_mal = (malejaca_rata_kredytu - odsetkiWartosc_mal);
-          raty_stałe[i] = [
-            {stala_rata_kredytu: (stala_rata_kredytu).toFixed(2)},
-            {KapitalWartosc: (kapitałWartosc).toFixed(2)},
-            {odsetkiWartosc: (odsetkiWartosc).toFixed(2)}];
-          raty_mal[i] = [
-            {bilans_mal: (bilans_mal).toFixed(2)},
-            {kapitałWartosc_mal: (kapitałWartosc_mal).toFixed(2)},
-            {odsetkiWartosc_mal: (odsetkiWartosc_mal).toFixed(2)}
-          ];
           sum = ((bill / 1000) - bilans_mal);
-          
-          // console.log(i + ". " + "rata: " + (stala_rata_kredytu).toFixed(2) + " kapitał: " + (kapitałWartosc).toFixed(2) + " odsetki: " + (odsetkiWartosc).toFixed(2));
-          ++i;
-          termsBody.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">' + i +'</td><td class="py-2 text-center border-r">' + (stala_rata_kredytu).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (kapitałWartosc).toFixed(2) + 'zł</td><td class="py-2 text-center">' + (odsetkiWartosc).toFixed(2) +'zł</td></tr>';
-          // console.log("pozostało do spłaty: " + (rataWartosc).toFixed(2));
-          decTerms.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">' + i +'</td><td class="py-2 text-center border-r">' + (bilans_mal).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (kapitałWartosc_mal).toFixed(2) + 'zł</td><td class="py-2 text-center">' + (odsetkiWartosc_mal).toFixed(2) +'zł</td></tr>';
-          energyBody.innerHTML +='<tr class="border-b"><td class="py-2 text-center border-r">'+ bill + 'zł</td><td class="py-2 text-center border-r">'+ (bilans_mal).toFixed(2) + 'zł</td><td class="py-2 text-center border-r">' + (sum).toFixed(2) + 'zł</td></tr>'
         }
-          console.log(raty_stałe);
-          console.log(raty_mal);
-        // console.log("bilans po " + bilans);
       }
     </script>
   </div>
