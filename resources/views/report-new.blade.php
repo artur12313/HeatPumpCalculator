@@ -14,7 +14,8 @@
         </div>
     @endif
     <div class="container mx-auto mt-3">
-        <form method="POST" action="/report-new">
+        <form action="{{route('report.createPDF')}}" method="GET">
+            @method('GET')
             <div>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     {{ __('Klient') }}
@@ -128,10 +129,10 @@
                         <x-jet-label for="minimalTemperature" value="{{ __('Minimalna Temperatura pracy pompy bez wspomagania') }}" />
                         <select id="minimalTemperature" name="minimalTemperature" onchange="getvalue()">
                             <option value="">-Wybierz-</option>
-                            <option value="1">-7</option>
-                            <option value="1.3">-12</option>
-                            <option value="1.6">-15</option>
-                            <option value="1.8">-20</option>
+                            <option value="-7">-7</option>
+                            <option value="-12">-12</option>
+                            <option value="-15">-15</option>
+                            <option value="-20">-20</option>
                         </select>
                     </div>
                     <div>

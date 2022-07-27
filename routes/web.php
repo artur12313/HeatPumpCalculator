@@ -28,7 +28,10 @@ Route::middleware([
 ])->group(function () {
 Route::get('/', function () { return view('dashboard');});
 
-Route::resource('reports', ReportController::class);
+Route::resource('reports', ReportController::class)->only([
+    'index'
+]);
+Route::get('/reports/pdf', [ReportController::class, 'createPDF'])->name('report.createPDF');
 Route::resource('calculator', CalculatorController::class)->only([
     'index'
 ]);
