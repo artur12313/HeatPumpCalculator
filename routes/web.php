@@ -5,6 +5,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\PumpController;
+use App\Http\Controllers\ModuleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +42,7 @@ Route::resource('fuels', FuelController::class)->only([
     'index', 'create', 'store', 'update', 'destroy', 'edit'
 ]);
 
+Route::resource('modules', ModuleController::class);
 Route::resource('pump', PumpController::class);
 
 // Route::get('/fuels', [FuelController::class, 'index']);

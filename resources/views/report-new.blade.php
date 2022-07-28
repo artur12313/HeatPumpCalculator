@@ -146,6 +146,14 @@
                     </div>
                 </div>
             </div>
+            <div class="modules">
+                <fieldset name="">
+                    <legend>Opcje dodatkowe</legend>
+                    @foreach($modules as $item)
+                    <input type="checkbox" name="modules[]" value="{{ $item->id }}">{{ $item->name }} (+{{ $item->comma_price }}zł)<br>
+                    @endforeach
+                </fieldset>
+            </div>
             <div id="preview" class="mt-4">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
                     {{ __('Podgląd') }}
@@ -234,6 +242,7 @@
 
     function heatDemand()
     {
-        //TODO
+        let heatDemand1 = Number(document.getElementById('heatDemand1').value == "" ? 0 : document.getElementById('heatDemand1').value);
+        let heatDemand2 = Number(document.getElementById('heatDemand2').value == "" ? 0 : document.getElementById('heatDemand2').value);
     }
 </script>

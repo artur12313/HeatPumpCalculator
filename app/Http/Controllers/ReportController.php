@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Fuel;
 use App\Models\Pump;
+use App\Models\Module;
 use PDF;
 use Dompdf\Dompdf;
 use Auth;
@@ -15,14 +16,26 @@ class ReportController extends Controller
     {
         $fuel = Fuel::all();
         $pump = Pump::all();
-        return view('report-new')->with(['fuel' => $fuel, 'pump' => $pump]);
+        $modules = Module::all();
+        return view('report-new')->with(['fuel' => $fuel, 'pump' => $pump, 'modules' => $modules]);
     }
 
     public function createPDF(Request $request)
     {
+        $reportID = 'REM/'.date('Y/m/d');
         $user = Auth::user();
-
+        $modules = Module::find($request->modules);
         $pump = Pump::find($request->pump);
+
+        $modulesTotalValue = 0;
+        foreach($modules as $item)
+        {
+            $modulesTotalValue += $item->price;
+        }
+
+        $totalValue = $modulesTotalValue + $pump->price;
+        $tax = 0.08 * $totalValue;
+        $grossTotalValue = $totalValue + $tax;
 
         $clientName = $request->clientName;
         $address = $request->address;
@@ -62,7 +75,13 @@ class ReportController extends Controller
             'annualEnergyExpenditure' => $annualEnergyExpenditure,
             'minimalTemperature' => $minimalTemperature,
             'sizeFV' => $sizeFV,
+            'modules' => $modules,
+            'modulesTotalValue' => $modulesTotalValue,
+            'totalValue' => $totalValue,
+            'tax' => $tax,
+            'grossTotalValue' => $grossTotalValue,
+            'reportID' => $reportID
         ]);
-        return $pdf->stream();
+        return $pdf->stream($reportID." | ".$clientName.".pdf");
     }
 }
