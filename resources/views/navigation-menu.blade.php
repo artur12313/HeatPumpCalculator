@@ -15,10 +15,10 @@
                     <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('reports.index')">
                         {{ __('Nowy raport') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('calculator.index')">
+                    {{-- <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('calculator.index')">
                         {{ __('Kalkulator kredytowy') }}
-                    </x-jet-nav-link>
-                    <x-jet-dropdown width="60">
+                    </x-jet-nav-link> --}}
+                    {{-- <x-jet-dropdown width="60">
                         <x-slot name="trigger">
                                 <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
                                     {{ __('Ustawienia') }}
@@ -43,7 +43,7 @@
                                 </x-jet-dropdown-link>
                             </div>
                         </x-slot>
-                    </x-jet-dropdown>
+                    </x-jet-dropdown> --}}
                 </div>
             </div>
 
@@ -120,13 +120,25 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Ustawienia') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('fuels.index') }}">
+                                {{ __('Paliwa') }}
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('pump.index') }}">
+                                {{ __('Pompy') }}
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('modules.index') }}">
+                                {{ __('Moduły') }}
+                            </x-jet-dropdown-link>
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('Zarządzanie kontem') }}
                             </div>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('Profil') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -143,7 +155,7 @@
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Wyloguj') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
