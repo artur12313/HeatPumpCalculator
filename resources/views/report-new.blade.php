@@ -52,11 +52,25 @@
                     <x-jet-input id="roomHeight" class="block mt-1 w-full" type="number" name="roomHeight" onchange="kubatura()" required autofocus />
                 </div>
             </div>
-            <div class="grid grid-cols-2">
+            <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col mt-4 gap-4">
                     <div>
                         <x-jet-label for="buildingInsulation" value="{{ __('Deklarowana izolacja budynku') }}" />
-                        <select id="buildingInsulation" name="buildingInsulation" onchange="getvalue()">
+                        <select id="buildingInsulation" name="buildingInsulation" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="0">Ocieplenie styropian / wełna 5cm</option>
                             <option value="0.3">Ocieplenie styropian / wełna 10cm</option>
@@ -67,7 +81,21 @@
                     </div>
                     <div>
                         <x-jet-label for="windows" value="{{ __('Okna') }}" />
-                        <select id="windows" name="windows" onchange="getvalue()">
+                        <select id="windows" name="windows" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="0">Okna skrzyniowe 1 szybowe</option>
                             <option value="0.4">Okna ciepłe 2 szybowe</option>
@@ -76,7 +104,21 @@
                     </div>
                     <div>
                         <x-jet-label for="glazing" value="{{ __('Przeszklenia') }}" />
-                        <select id="glazing" name="glazing" onchange="getvalue()">
+                        <select id="glazing" name="glazing" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="0">Duże przeszklenia</option>
                             <option value="0.4">Standardowe przeszklenia</option>
@@ -84,7 +126,21 @@
                     </div>
                     <div>
                         <x-jet-label for="ceiling" value="{{ __('Strop') }}" />
-                        <select id="ceiling" name="ceiling" onchange="getvalue()">
+                        <select id="ceiling" name="ceiling" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="0.4">Izolowany strop</option>
                             <option value="0">Nie Izolowany strop</option>
@@ -92,7 +148,21 @@
                     </div>
                     <div>
                         <x-jet-label for="fuel" value="{{ __('Obecnie stosowane paliwo do ogrzewania') }}" />
-                        <select id="fuel" name="fuel" onchange="getvalue()">
+                        <select id="fuel" name="fuel" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                                 <option value="">-Wybierz-</option>
                             @foreach($fuel as $item)
                                 <option value="{{$item->id}}">{{$item->name}}</option>
@@ -103,7 +173,21 @@
                 <div class="mt-4 gap-4 flex flex-col">
                     <div>
                         <x-jet-label for="floor" value="{{ __('Podłoga') }}" />
-                        <select id="floor" name="floor" onchange="getvalue()">
+                        <select id="floor" name="floor" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="0.4">Izolowana podłoga</option>
                             <option value="0">Nie Izolowana podłoga</option>
@@ -111,7 +195,21 @@
                     </div>
                     <div>
                         <x-jet-label for="doors" value="{{ __('Drzwi') }}" />
-                        <select id="doors" name="doors" onchange="getvalue()">
+                        <select id="doors" name="doors" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="0.4">Izolowane drzwi wejściowe</option>
                             <option value="0">Nie Izolowane drzwi wejściowe</option>
@@ -119,7 +217,21 @@
                     </div>
                     <div>
                         <x-jet-label for="heaters" value="{{ __('Grzejniki') }}" />
-                        <select id="heaters" name="heaters" onchange="getvalue()">
+                        <select id="heaters" name="heaters" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="0.5">Grzejniki niskotemperaturowe</option>
                             <option value="0">Grzejniki wysokotemperaturowe</option>
@@ -127,7 +239,21 @@
                     </div>
                     <div>
                         <x-jet-label for="minimalTemperature" value="{{ __('Minimalna Temperatura pracy pompy bez wspomagania') }}" />
-                        <select id="minimalTemperature" name="minimalTemperature" onchange="getvalue()">
+                        <select id="minimalTemperature" name="minimalTemperature" onchange="getvalue()" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             <option value="">-Wybierz-</option>
                             <option value="-7">-7</option>
                             <option value="-12">-12</option>
@@ -137,7 +263,21 @@
                     </div>
                     <div>
                         <x-jet-label for="pump" value="{{ __('Proponowana pompa ciepła') }}" />
-                        <select id="pump" name="pump">
+                        <select id="pump" name="pump" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                                 <option value="">-Wybierz-</option>
                             @foreach($pump as $item)
                                 <option value="{{$item->id}}">{{$item->name}}</option>
@@ -147,14 +287,17 @@
                 </div>
             </div>
             <div class="modules">
-                <fieldset name="">
-                    <legend>Opcje dodatkowe</legend>
+                <fieldset>
+                    <legend><h2 class="font-semibold text-xl text-gray-800 leading-tight my-4">Opcje dodatkowe</h2></legend>
                     @foreach($modules as $item)
-                    <input type="checkbox" name="modules[]" value="{{ $item->id }}">{{ $item->name }} (+{{ $item->comma_price }}zł)<br>
+                    <div class="form-check">
+                        <input type="checkbox" name="modules[]" value="{{ $item->id }}" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
+                        <label class="form-check-label inline-block text-gray-800">{{ $item->name }} (+{{ $item->comma_price }}zł)</label>
+                    </div>
                     @endforeach
                 </fieldset>
             </div>
-            <div id="preview" class="mt-4">
+            <div id="preview" class="mt-6">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
                     {{ __('Podgląd') }}
                 </h2>
@@ -180,6 +323,8 @@
                             </div>
                         </div>
                 </div>
+                <input type="hidden" id="kubatura"/>
+                <input type="hidden" id="annualEnergyExpenditure"/>
             </div>
         </div>
             <div class="footer-form my-4 flex justify-between container mx-auto">
@@ -225,24 +370,35 @@
         let operation = 0;
         let heatLosse = document.getElementById('heatLosse');
         operation = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
-        heatLosse.value = operation;
+        heatLosse.value = (operation).toFixed(2);
     }
 
     function kubatura()
     {
         let heatingArea = Number(document.getElementById('heatingArea').value == "" ? 0 : document.getElementById('heatingArea').value);
         let roomHeight = Number(document.getElementById('roomHeight').value == "" ? 0 : document.getElementById('roomHeight').value);
+        var kubatura = document.getElementById('kubatura');
 
-        let kubatura = heatingArea * (roomHeight / 100);
+        let kubaturaOperation = heatingArea * (roomHeight / 100);
+        kubatura.value = kubaturaOperation;
+        console.log(kubaturaOperation);
 
-        console.log(kubatura);
-
-        return kubatura
     }
 
     function heatDemand()
     {
         let heatDemand1 = Number(document.getElementById('heatDemand1').value == "" ? 0 : document.getElementById('heatDemand1').value);
         let heatDemand2 = Number(document.getElementById('heatDemand2').value == "" ? 0 : document.getElementById('heatDemand2').value);
+    }
+
+    function annualEnergyExpenditure()
+    {
+        let heatLosse = Number(document.getElementById('heatLosse').value == "" ? 0 : document.getElementById('heatLosse').value);
+        let kubatura = Number(document.getElementById('kubatura').value == "" ? 0 : document.getElementById('kubatura').value);
+        var annualEnergyExpenditure = document.getElementById('annualEnergyExpenditure');
+
+        operation = (heatLosse * kubatura * 23);
+        annualEnergyExpenditure.value = operation;
+
     }
 </script>
