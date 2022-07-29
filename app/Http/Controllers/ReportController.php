@@ -22,7 +22,8 @@ class ReportController extends Controller
 
     public function createPDF(Request $request)
     {
-        $reportID = 'REM/'.date('Y/m/d');
+        date_default_timezone_set("Europe/Warsaw");
+        $reportID = 'REM/'.date('Y/m/d/His');
         $user = Auth::user();
         $modules = Module::find($request->modules);
         $pump = Pump::find($request->pump);
