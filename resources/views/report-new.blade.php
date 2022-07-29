@@ -45,11 +45,11 @@
             <div class="flex flex-row mt-4 gap-4 justify-center">
                 <div class="w-full">
                     <x-jet-label for="heatingArea" value="{{ __('Powierzchnia ogrzewania w m2') }}" />
-                    <x-jet-input id="heatingArea" class="block mt-1 w-full" type="number" name="heatingArea" onchange="kubatura()" required autofocus />
+                    <x-jet-input id="heatingArea" class="block mt-1 w-full" type="number" name="heatingArea" required autofocus />
                 </div>
                 <div class="w-full">
                     <x-jet-label for="roomHeight" value="{{ __('Wysokość pomieszczeń w cm') }}" />
-                    <x-jet-input id="roomHeight" class="block mt-1 w-full" type="number" name="roomHeight" onchange="kubatura()" required autofocus />
+                    <x-jet-input id="roomHeight" class="block mt-1 w-full" type="number" name="roomHeight" required autofocus />
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
@@ -261,6 +261,45 @@
                             <option value="-20">-20</option>
                         </select>
                     </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <div class="modules mt-4 gap-4 flex flex-col">
+                    <fieldset>
+                        <legend><h2 class="font-semibold text-xl text-gray-800 leading-tight my-4">Opcje dodatkowe</h2></legend>
+                        @foreach($modules as $item)
+                        <div class="form-check">
+                            <input type="checkbox" name="modules[]" value="{{ $item->id }}" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
+                            <label class="form-check-label inline-block text-gray-800">{{ $item->name }} (+{{ $item->comma_price }}zł)</label>
+                        </div>
+                        @endforeach
+                    </fieldset>
+                </div>
+                <div class="mt-4 gap-4 flex flex-col">
+                    <div class="w-full">
+                        <x-jet-label for="numberOfPeople" value="{{ __('Ilość mieszkańców na stałe') }}" />
+                        <x-jet-input id="numberOfPeople" class="block mt-1 w-full" type="number" name="numberOfPeople" required autofocus onchange="getvalue()"/>
+                    </div>
+                    <div>
+                        <div class="w-full">
+                            <x-jet-label for="powerPump" value="{{ __('Sugerowana moc pompy (kW)') }}" />
+                            <x-jet-input id="powerPump" class="form-control
+                            block
+                            w-full
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-blue-200 bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="text" name="powerPump" required autofocus disabled/>
+                        </div>
+                    </div>
                     <div>
                         <x-jet-label for="pump" value="{{ __('Proponowana pompa ciepła') }}" />
                         <select id="pump" name="pump" class="form-select appearance-none
@@ -284,18 +323,25 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-            </div>
-            <div class="modules">
-                <fieldset>
-                    <legend><h2 class="font-semibold text-xl text-gray-800 leading-tight my-4">Opcje dodatkowe</h2></legend>
-                    @foreach($modules as $item)
-                    <div class="form-check">
-                        <input type="checkbox" name="modules[]" value="{{ $item->id }}" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                        <label class="form-check-label inline-block text-gray-800">{{ $item->name }} (+{{ $item->comma_price }}zł)</label>
+                    <div class="w-full">
+                        <x-jet-label for="costHeatingPump" value="{{ __('Roczny koszt ogrzewania domu pompą ciepła') }}" />
+                        <x-jet-input id="costHeatingPump" class="form-control
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-green-200 bg-clip-padding
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="number" name="costHeatingPump" required autofocus disabled/>
                     </div>
-                    @endforeach
-                </fieldset>
+                </div>
             </div>
             <div id="preview" class="mt-6">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
@@ -328,7 +374,7 @@
             </div>
         </div>
             <div class="footer-form my-4 flex justify-between container mx-auto">
-                <button type="button" class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger">Podgląd</button>
+                <button type="button" class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger" onclick="getvalue()">Podgląd</button>
                 <button type="submit" class="bg-sky-600/75 hover:bg-sky-600/50 text-white py-1 px-4 text-lg">Zapisz</button>
             </div>
         </form>
@@ -360,45 +406,104 @@
             let doors = Number(document.getElementById('doors').value == "" ? 0 : document.getElementById('doors').value);
             let heaters = Number(document.getElementById('heaters').value == "" ? 0 : document.getElementById('heaters').value);
             
-            return heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters);
+            // return heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters);
+
+            // heatLosse
+            let number = parseInt(4);
+            let heatLosse = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
+            let heatLosseInput = document.getElementById('heatLosse');
+            heatLosseInput.value = (heatLosse).toFixed(2);
+
+            // kubatura
+            let heatingArea = Number(document.getElementById('heatingArea').value == "" ? 0 : document.getElementById('heatingArea').value);
+            let roomHeight = Number(document.getElementById('roomHeight').value == "" ? 0 : document.getElementById('roomHeight').value);
+
+            let kubatura = heatingArea * (roomHeight / 100);
+
+            // annualEnergyExpenditure           
+            var annualEnergyExpenditure = (heatLosse * kubatura * 23);
+
+            // heatDemand
+            let heatDemandInput1 = document.getElementById('heatDemand1');
+            let heatDemandInput2 = document.getElementById('heatDemand2');
+
+            let heatDemand1 = (annualEnergyExpenditure / kubatura);
+            heatDemandInput1.value = (heatDemand1).toFixed(0);
+
+            let heatDemand2 = (heatDemand1 * roomHeight) / 100;
+            heatDemandInput2.value = (heatDemand2).toFixed(0);
+
+            // powerPump
+            let powerPumpInput = document.getElementById('powerPump');
+            let minimalTemperature = document.getElementById('minimalTemperature').value;
+            let numberOfPeople = Number(document.getElementById('numberOfPeople').value == "" ? 0 : document.getElementById('numberOfPeople').value);
+            var powerPump = 0;
+            if( minimalTemperature == -7)
+            {
+                powerPump = (annualEnergyExpenditure / 1000) + (numberOfPeople * 0.5);
+                powerPumpInput.value = powerPump.toFixed(0);
+            }
+            if (minimalTemperature == -12)
+            {
+                powerPump = ((annualEnergyExpenditure * 1.2) / 1000) + (numberOfPeople * 0.5);
+                powerPumpInput.value = powerPump.toFixed(0);
+            }
+            if (minimalTemperature == -15)
+            {
+                powerPump = ((annualEnergyExpenditure * 1.4) / 1000) + (numberOfPeople * 0.5);
+                powerPumpInput.value = powerPump.toFixed(0);
+            }
+            if (minimalTemperature == -20)
+            {
+                powerPump = ((annualEnergyExpenditure * 1.6) / 1000) + (numberOfPeople * 0.5);
+                powerPumpInput.value = powerPump.toFixed(0);
+            }
+
+            // costHeatingPump
+            let costHeatingPump = document.getElementById('costHeatingPump');
+
+            if(heaters == 0.5)
+            {
+                (annualEnergyExpenditure * ) / 3.75;
+            }
         }
     }
 
-    function heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters)
-    {
-        let number = parseInt(4);
-        let operation = 0;
-        let heatLosse = document.getElementById('heatLosse');
-        operation = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
-        heatLosse.value = (operation).toFixed(2);
-    }
+    // function heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters)
+    // {
+    //     let number = parseInt(4);
+    //     let operation = 0;
+    //     let heatLosse = document.getElementById('heatLosse');
+    //     operation = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
+    //     heatLosse.value = (operation).toFixed(2);
+    // }
 
-    function kubatura()
-    {
-        let heatingArea = Number(document.getElementById('heatingArea').value == "" ? 0 : document.getElementById('heatingArea').value);
-        let roomHeight = Number(document.getElementById('roomHeight').value == "" ? 0 : document.getElementById('roomHeight').value);
-        var kubatura = document.getElementById('kubatura');
+    // function kubatura()
+    // {
+    //     let heatingArea = Number(document.getElementById('heatingArea').value == "" ? 0 : document.getElementById('heatingArea').value);
+    //     let roomHeight = Number(document.getElementById('roomHeight').value == "" ? 0 : document.getElementById('roomHeight').value);
+    //     var kubatura = document.getElementById('kubatura');
 
-        let kubaturaOperation = heatingArea * (roomHeight / 100);
-        kubatura.value = kubaturaOperation;
-        console.log(kubaturaOperation);
+    //     let kubaturaOperation = heatingArea * (roomHeight / 100);
+    //     kubatura.value = kubaturaOperation;
+    //     console.log(kubaturaOperation);
 
-    }
+    // }
 
-    function heatDemand()
-    {
-        let heatDemand1 = Number(document.getElementById('heatDemand1').value == "" ? 0 : document.getElementById('heatDemand1').value);
-        let heatDemand2 = Number(document.getElementById('heatDemand2').value == "" ? 0 : document.getElementById('heatDemand2').value);
-    }
+    // function heatDemand()
+    // {
+    //     let heatDemand1 = Number(document.getElementById('heatDemand1').value == "" ? 0 : document.getElementById('heatDemand1').value);
+    //     let heatDemand2 = Number(document.getElementById('heatDemand2').value == "" ? 0 : document.getElementById('heatDemand2').value);
+    // }
 
-    function annualEnergyExpenditure()
-    {
-        let heatLosse = Number(document.getElementById('heatLosse').value == "" ? 0 : document.getElementById('heatLosse').value);
-        let kubatura = Number(document.getElementById('kubatura').value == "" ? 0 : document.getElementById('kubatura').value);
-        var annualEnergyExpenditure = document.getElementById('annualEnergyExpenditure');
+    // function annualEnergyExpenditure()
+    // {
+    //     let heatLosse = Number(document.getElementById('heatLosse').value == "" ? 0 : document.getElementById('heatLosse').value);
+    //     let kubatura = Number(document.getElementById('kubatura').value == "" ? 0 : document.getElementById('kubatura').value);
+    //     var annualEnergyExpenditure = document.getElementById('annualEnergyExpenditure');
 
-        operation = (heatLosse * kubatura * 23);
-        annualEnergyExpenditure.value = operation;
+    //     operation = (heatLosse * kubatura * 23);
+    //     annualEnergyExpenditure.value = operation;
+    // }
 
-    }
 </script>
