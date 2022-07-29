@@ -28,11 +28,15 @@ class ReportController extends Controller
         $pump = Pump::find($request->pump);
 
         $modulesTotalValue = 0;
-        foreach($modules as $item)
-        {
-            $modulesTotalValue += $item->price;
-        }
 
+        if($modules != null)
+        {
+            foreach($modules as $item)
+            {
+                $modulesTotalValue += $item->price;
+            }
+        }
+        
         $totalValue = $modulesTotalValue + $pump->price;
         $tax = 0.08 * $totalValue;
         $grossTotalValue = $totalValue + $tax;
@@ -62,7 +66,31 @@ class ReportController extends Controller
         
         $sizeFV = ($annualEnergyExpenditure / 1000) / 2.7;
 
-        $pdf = PDF::loadView('reportPDF', [
+        // $pdf = PDF::loadView('reportPDF', [
+        //     'pump' => $pump,
+        //     'clientName' => $clientName,
+        //     'address' => $address,
+        //     'city' => $city,
+        //     'phone' => $phone,
+        //     'user' => $user,
+        //     'heatingArea' => $heatingArea,
+        //     'kubatura' => $kubatura,
+        //     'assumedHeatDemand' => $assumedHeatDemand,
+        //     'annualEnergyExpenditure' => $annualEnergyExpenditure,
+        //     'minimalTemperature' => $minimalTemperature,
+        //     'sizeFV' => $sizeFV,
+        //     'modules' => $modules,
+        //     'modulesTotalValue' => $modulesTotalValue,
+        //     'totalValue' => $totalValue,
+        //     'tax' => $tax,
+        //     'grossTotalValue' => $grossTotalValue,
+        //     'reportID' => $reportID
+        // ]);
+        $path = base_path('/public/logo.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reportPDF', [
             'pump' => $pump,
             'clientName' => $clientName,
             'address' => $address,
@@ -80,8 +108,8 @@ class ReportController extends Controller
             'totalValue' => $totalValue,
             'tax' => $tax,
             'grossTotalValue' => $grossTotalValue,
-            'reportID' => $reportID
-        ]);
-        return $pdf->stream($reportID." | ".$clientName.".pdf");
+            'reportID' => $reportID,
+            'pic' => $pic
+        ])->stream($reportID." | ".$clientName.".pdf");
     }
 }

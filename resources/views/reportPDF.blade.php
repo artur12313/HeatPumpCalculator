@@ -23,7 +23,10 @@
         border-right: 0;
       }
       .bgGray {
-        background-color: gray;
+        background-color: #dadbdb;
+      }
+      .bgGreen {
+        background-color: #b2e286;
       }
       td {
         padding: .5rem;
@@ -36,12 +39,13 @@
       </style>
     </head>
     <body>
-      <span style="text-align: right;">Raport nr.: {{ $reportID }}</span>
+      <span style="text-align: right;">Raport nr.: {{ $reportID }}</span><br><br>
+      <img src="{{$pic}}" style="width: 180px; height: auto; margin-left: 35%;"/>
       <div class="title">
-        <h1>Kalkulacja doboru Pompy Ciepła</h1>
+        <h1 style="color: #104ca5;">Kalkulacja doboru Pompy Ciepła</h1>
       </div>
       <div class="box">
-        <div style="float: left; width: 50%; height: 30%;">
+        <div style="float: left; width: 50%; height: 20%;">
           <table>
             <thead>
               <tr>
@@ -57,7 +61,7 @@
             </tbody>
           </table>
         </div>
-        <div style="margin-left: 50%; width: 50%; height: 30%;">
+        <div style="margin-left: 50%; width: 50%; height: 20%;">
           <table style="border-left: 0;">
             <thead>
               <tr>
@@ -77,7 +81,7 @@
         <table>
           <thead>
             <tr>
-              <td style="border-right: 0;"><h3>Szacunkowy dobór mocy pompy ciepła*;</h3></td>
+              <td style="border-right: 0; color: #104ca5;"><h3>Szacunkowy dobór mocy pompy ciepła*;</h3></td>
               <td></td>
             </tr>
           </thead>
@@ -99,8 +103,8 @@
               <td>{{ $annualEnergyExpenditure }} kWh/rok</td>
             </tr>
             <tr>
-              <td class="bgGray" style="font-size: 10px; border-right: 0;">Obliczanie współczynnika strat ciepła wg. wytycznych VDI 2067</td>
-              <td class="bgGray"></td>
+              <td class="bgGreen" style="font-size: 10px; border-right: 0;">Obliczanie współczynnika strat ciepła wg. wytycznych VDI 2067</td>
+              <td class="bgGreen"></td>
             </tr>
             <tr>
               <td>Model proponowanej pompy ciepła:</td>
@@ -119,8 +123,8 @@
         <table style="border-top: 0;">
           <thead class="bgGray">
             <tr>
-              <td>Kalkulacja cenowa zestawu Pompy Ciepła**</td>
-              <td></td>
+              <td class="bgGreen">Kalkulacja cenowa zestawu Pompy Ciepła**</td>
+              <td class="bgGreen"></td>
             </tr>
             <tr>
               <td>Typ</td>
@@ -136,25 +140,32 @@
         </table>
         <table style="border-top: 0;">
           <thead>
-            <tr class="bgGray">
+            <tr class="bgGreen">
               <td>Kalkulacja cenowa zestawu przyłączeniowego</td>
               <td></td>
             </tr>
           </thead>
           <tbody>
+            @if($modules != null)
             @foreach($modules as $item)
               <tr>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->comma_price }} zł</td>
               </tr>
             @endforeach
+            @else
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+            @endif
           </tbody>
           <tfoot>
             <tr>
               <td> <strong>Razem</strong></td>
-              <td>{{ number_format($modulesTotalValue, 2, ',','') }} zł</td></tr>
-          </tfoot>
-        </table>
+              <td><strong>{{ number_format($modulesTotalValue, 2, ',','') }} zł</strong></td></tr>
+            </tfoot>
+          </table>
         <table style="margin-top: 1rem;">
           <thead>
             <tr>
@@ -163,9 +174,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Wartość systemu netto</td><td>{{ number_format($totalValue, 2, ',','') }} zł</td></tr>
-            <tr><td>VAT 8%</td><td>{{ number_format($tax, 2, ',','')}} zł</td></tr>
-            <tr><td>Cena zestawu brutto</td><td>{{ number_format($grossTotalValue, 2, ',','')}} zł</td></tr>
+            <tr><td>Wartość systemu netto</td><td><strong>{{ number_format($totalValue, 2, ',','') }} zł</strong></td></tr>
+            <tr><td>VAT 8%</td><td><strong>{{ number_format($tax, 2, ',','')}} zł</strong></td></tr>
+            <tr><td>Cena zestawu brutto</td><td><strong>{{ number_format($grossTotalValue, 2, ',','')}} zł</strong></td></tr>
           </tbody>
         </table>
       </div>
