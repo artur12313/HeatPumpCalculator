@@ -66,26 +66,6 @@ class ReportController extends Controller
         
         $sizeFV = ($annualEnergyExpenditure / 1000) / 2.7;
 
-        // $pdf = PDF::loadView('reportPDF', [
-        //     'pump' => $pump,
-        //     'clientName' => $clientName,
-        //     'address' => $address,
-        //     'city' => $city,
-        //     'phone' => $phone,
-        //     'user' => $user,
-        //     'heatingArea' => $heatingArea,
-        //     'kubatura' => $kubatura,
-        //     'assumedHeatDemand' => $assumedHeatDemand,
-        //     'annualEnergyExpenditure' => $annualEnergyExpenditure,
-        //     'minimalTemperature' => $minimalTemperature,
-        //     'sizeFV' => $sizeFV,
-        //     'modules' => $modules,
-        //     'modulesTotalValue' => $modulesTotalValue,
-        //     'totalValue' => $totalValue,
-        //     'tax' => $tax,
-        //     'grossTotalValue' => $grossTotalValue,
-        //     'reportID' => $reportID
-        // ]);
         $path = base_path('/public/logo.png');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
