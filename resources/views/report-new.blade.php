@@ -165,9 +165,13 @@
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                                 <option value="">-Wybierz-</option>
                             @foreach($fuel as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                <option value="{{$item->id}}" data-price="{{$item->price}}" data-efficiency="{{$item->efficiency}}" data-caloricValue="{{$item->caloricValue}}">{{$item->name}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="w-full">
+                        <x-jet-label for="electricPrice" value="{{ __('Koszt wytworzenia 1kWh energii elektrycznej') }}" />
+                        <x-jet-input id="electricPrice" class="block mt-1 w-full" type="number" name="electricPrice" step="any" required autofocus />
                     </div>
                 </div>
                 <div class="mt-4 gap-4 flex flex-col">
@@ -324,6 +328,24 @@
                         </select>
                     </div>
                     <div class="w-full">
+                        <x-jet-label for="costHeatingFuel" value="{{ __('Roczny koszt ogrzewania domu obecnie stosowanym paliwem') }}" />
+                        <x-jet-input id="costHeatingFuel" class="form-control
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-yellow-200 bg-clip-padding
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="number" name="costHeatingFuel" required autofocus disabled/>
+                    </div>
+                    <div class="w-full">
                         <x-jet-label for="costHeatingPump" value="{{ __('Roczny koszt ogrzewania domu pompą ciepła') }}" />
                         <x-jet-input id="costHeatingPump" class="form-control
                         block
@@ -460,12 +482,33 @@
             }
 
             // costHeatingPump
-            let costHeatingPump = document.getElementById('costHeatingPump');
-
+            let costHeatingPumpInput = document.getElementById('costHeatingPump');
+            let electricPrice = Number(document.getElementById('electricPrice').value == "" ? 0 : document.getElementById('electricPrice').value);
+            let costHeatingPump = 0;
             if(heaters == 0.5)
             {
-                (annualEnergyExpenditure * ) / 3.75;
+                costHeatingPump = (annualEnergyExpenditure * electricPrice) / 3.75;
+                console.log(costHeatingPump);
+                costHeatingPumpInput.value = costHeatingPump.toFixed(2);
             }
+            if(heaters == 0)
+            {
+                costHeatingPump = (annualEnergyExpenditure * electricPrice) / 3.2;
+                costHeatingPumpInput.value = costHeatingPump.toFixed(2);
+            }
+
+            // costHeatingFuel
+            let costHeatingFuel = document.getElementById('costHeatingFuel');
+            let fuelPrice = Number(document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-price') == "" ? 0 : document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-price'));
+            let fuelEfficiency = Number(document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-efficiency') == "" ? 0 : document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-efficiency'));
+            let caloricValue = Number(document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-caloricValue') == "" ? 0 : document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-caloricValue'));
+            
+            let fuelPriceAfter = fuelPrice / ((caloricValue / 3600) / 1.176);
+            console.log(fuelPriceAfter);
+            fuelEfficiency = fuelEfficiency / 100;
+
+            let costHeatingFuelOperation = (annualEnergyExpenditure * ((fuelPriceAfter * 1000) / fuelEfficiency)) / 1000;
+            costHeatingFuel.value = costHeatingFuelOperation.toFixed(2);
         }
     }
 
