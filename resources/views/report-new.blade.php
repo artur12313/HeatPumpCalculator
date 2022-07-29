@@ -363,12 +363,30 @@
                         m-0
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="number" name="costHeatingPump" required autofocus disabled/>
                     </div>
+                    <div class="w-full">
+                        <x-jet-label for="annualSavings" value="{{ __('Roczny koszt ogrzewania domu pompą ciepła') }}" />
+                        <x-jet-input id="annualSavings" class="form-control
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-green-200 bg-clip-padding
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="number" name="annualSavings" required autofocus disabled/>
+                    </div>
                 </div>
             </div>
             <div id="preview" class="mt-6">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
                     {{ __('Podgląd') }}
-                </h2>
+                </h2> --}}
     
                 <div class="mt-4">
                     <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
@@ -396,7 +414,7 @@
             </div>
         </div>
             <div class="footer-form my-4 flex justify-between container mx-auto">
-                <button type="button" class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger" onclick="getvalue()">Podgląd</button>
+                <button type="button" class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger">Podgląd</button>
                 <button type="submit" class="bg-sky-600/75 hover:bg-sky-600/50 text-white py-1 px-4 text-lg">Zapisz</button>
             </div>
         </form>
@@ -405,21 +423,22 @@
         
 </x-app-layout>
 <script>
-    var content = document.getElementById('preview');
-        content.style.display = "block";
+    // var content = document.getElementById('preview');
+    //     content.style.display = "block";
 
-    var previewTrigger = document.getElementById('previewTrigger').addEventListener("click", function () {
-        if(content.style.display == 'none')
-        {
-            content.style.display = "block";
-        }else{
-            content.style.display = "none";
-        }
-    });
+    // var previewTrigger = document.getElementById('previewTrigger').addEventListener("click", function () {
+    //     if(content.style.display == 'none')
+    //     {
+    //         content.style.display = "block";
+    //     }else{
+    //         content.style.display = "none";
+    //     }
+    // });
     function getvalue()
     {
         if(event.target.value != "")
         {
+            // heatLosse
             let buildingInsulation = Number(document.getElementById('buildingInsulation').value == "" ? 0 : document.getElementById('buildingInsulation').value);
             let windows = Number(document.getElementById('windows').value == "" ? 0 : document.getElementById('windows').value);
             let glazing = Number(document.getElementById('glazing').value == "" ? 0 : document.getElementById('glazing').value);
@@ -428,9 +447,6 @@
             let doors = Number(document.getElementById('doors').value == "" ? 0 : document.getElementById('doors').value);
             let heaters = Number(document.getElementById('heaters').value == "" ? 0 : document.getElementById('heaters').value);
             
-            // return heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters);
-
-            // heatLosse
             let number = parseInt(4);
             let heatLosse = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
             let heatLosseInput = document.getElementById('heatLosse');
@@ -488,7 +504,6 @@
             if(heaters == 0.5)
             {
                 costHeatingPump = (annualEnergyExpenditure * electricPrice) / 3.75;
-                console.log(costHeatingPump);
                 costHeatingPumpInput.value = costHeatingPump.toFixed(2);
             }
             if(heaters == 0)
@@ -504,49 +519,17 @@
             let caloricValue = Number(document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-caloricValue') == "" ? 0 : document.getElementById('fuel').options[document.getElementById('fuel').selectedIndex].getAttribute('data-caloricValue'));
             
             let fuelPriceAfter = fuelPrice / ((caloricValue / 3600) / 1.176);
-            console.log(fuelPriceAfter);
             fuelEfficiency = fuelEfficiency / 100;
 
             let costHeatingFuelOperation = (annualEnergyExpenditure * ((fuelPriceAfter * 1000) / fuelEfficiency)) / 1000;
             costHeatingFuel.value = costHeatingFuelOperation.toFixed(2);
+
+            // annualSavings
+            let annualSavings = document.getElementById('annualSavings');
+
+            let annualSavingsOperation = (costHeatingFuelOperation - costHeatingPump);
+            annualSavings.value = annualSavingsOperation.toFixed(2);
+
         }
     }
-
-    // function heatLosse(buildingInsulation, windows, glazing, ceiling, floor, doors, heaters)
-    // {
-    //     let number = parseInt(4);
-    //     let operation = 0;
-    //     let heatLosse = document.getElementById('heatLosse');
-    //     operation = number - (buildingInsulation + windows + glazing + ceiling + floor + doors + heaters);
-    //     heatLosse.value = (operation).toFixed(2);
-    // }
-
-    // function kubatura()
-    // {
-    //     let heatingArea = Number(document.getElementById('heatingArea').value == "" ? 0 : document.getElementById('heatingArea').value);
-    //     let roomHeight = Number(document.getElementById('roomHeight').value == "" ? 0 : document.getElementById('roomHeight').value);
-    //     var kubatura = document.getElementById('kubatura');
-
-    //     let kubaturaOperation = heatingArea * (roomHeight / 100);
-    //     kubatura.value = kubaturaOperation;
-    //     console.log(kubaturaOperation);
-
-    // }
-
-    // function heatDemand()
-    // {
-    //     let heatDemand1 = Number(document.getElementById('heatDemand1').value == "" ? 0 : document.getElementById('heatDemand1').value);
-    //     let heatDemand2 = Number(document.getElementById('heatDemand2').value == "" ? 0 : document.getElementById('heatDemand2').value);
-    // }
-
-    // function annualEnergyExpenditure()
-    // {
-    //     let heatLosse = Number(document.getElementById('heatLosse').value == "" ? 0 : document.getElementById('heatLosse').value);
-    //     let kubatura = Number(document.getElementById('kubatura').value == "" ? 0 : document.getElementById('kubatura').value);
-    //     var annualEnergyExpenditure = document.getElementById('annualEnergyExpenditure');
-
-    //     operation = (heatLosse * kubatura * 23);
-    //     annualEnergyExpenditure.value = operation;
-    // }
-
 </script>
