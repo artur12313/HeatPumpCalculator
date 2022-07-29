@@ -414,7 +414,6 @@
             </div>
         </div>
             <div class="footer-form my-4 flex justify-between container mx-auto">
-                <button type="button" class="bg-green-600/75 hover:bg-green-600/50 text-white py-1 px-4 text-lg" id="previewTrigger">Podgląd</button>
                 <button type="submit" class="bg-sky-600/75 hover:bg-sky-600/50 text-white py-1 px-4 text-lg">Zapisz</button>
             </div>
         </form>
@@ -423,17 +422,10 @@
         
 </x-app-layout>
 <script>
-    // var content = document.getElementById('preview');
-    //     content.style.display = "block";
-
-    // var previewTrigger = document.getElementById('previewTrigger').addEventListener("click", function () {
-    //     if(content.style.display == 'none')
-    //     {
-    //         content.style.display = "block";
-    //     }else{
-    //         content.style.display = "none";
-    //     }
-    // });
+    document.getElementById('phone').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})/);
+        e.target.value = !x[2] ? x[1] :  x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '');
+    });
     function getvalue()
     {
         if(event.target.value != "")
