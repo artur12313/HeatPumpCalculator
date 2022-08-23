@@ -6,6 +6,9 @@ use App\Http\Controllers\FuelController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\PumpController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\RolesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +47,18 @@ Route::resource('fuels', FuelController::class)->only([
 
 Route::resource('modules', ModuleController::class);
 Route::resource('pump', PumpController::class);
+
+
+Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+Route::get('/create', [UsersController::class, 'create'])->name('users.create');
+Route::post('/create', [UsersController::class, 'store'])->name('users.store');
+Route::get('/{user}/show', [UsersController::class, 'show'])->name('users.show');
+Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
+Route::patch('/{user}/update', [UsersController::class, 'update'])->name('users.update');
+Route::delete('/{user}/delete', [UsersController::class, 'destroy'])->name('users.destroy');
+
+Route::resource('roles', RolesController::class);
+Route::resource('permissions', PermissionsController::class);
 
 // Route::get('/fuels', [FuelController::class, 'index']);
 // Route::get('/fuels/new', [FuelController::class, 'create']);
