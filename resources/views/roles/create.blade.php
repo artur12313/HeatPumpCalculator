@@ -6,7 +6,7 @@
             </h2>
         </div>
     </x-slot>
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-3">
         @if($errors->any())
         <div role="alert">
         <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
@@ -25,39 +25,58 @@
         <form method="POST" action="{{ route('roles.store') }}">
             @csrf
             <div class="mb-3">
-                <x-jet-label for="name" class="form-label" value="{{ __('Nazwa') }}"/>
-                <x-jet-input value="{{ old('name') }}" 
-                    type="text" 
-                    class="form-control" 
-                    name="name" 
-                    placeholder="Nazwa" required/>
-
-                    <x-jet-label for="name" class="form-label" value="{{ __('przypisz pozwolenie') }}"/>
-
-                    <table class="table table-striped">
-                        <thead>
-                            <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                            <th scope="col" width="20%">Name</th>
-                            <th scope="col" width="1%">Guard</th> 
+                <div class="mb-3">
+                    <x-jet-label for="name" class="form-label" value="{{ __('Nazwa') }}"/>
+                    <x-jet-input value="{{ old('name') }}" 
+                        type="text" 
+                        class="form-control" 
+                        name="name" 
+                        placeholder="Nazwa" required/>
+                </div>
+                    <table class="min-w-full">
+                        <thead class="border-b bg-gray-800">
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Lp.</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left"><input type="checkbox" name="all_permission" onclick="allPermission(this)"></th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Name</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Guard</th> 
                         </thead>
     
                         @foreach($permissions as $permission)
-                            <tr>
-                                <td>
+                            <tr class="bg-gray-100 border-b">
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                     <input type="checkbox" 
                                     name="permission[{{ $permission->name }}]"
                                     value="{{ $permission->name }}"
                                     class="permission">
                                 </td>
-                                <td>{{ $permission->name }}</td>
-                                <td>{{ $permission->guard_name }}</td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $permission->name }}</td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $permission->guard_name }}</td>
                             </tr>
                         @endforeach
                     </table>
             </div>
-
-            <button type="submit" class="btn btn-primary">Zapisz</button>
-            <a href="{{ route('users.index') }}" class="btn btn-default">Wróć</a>
+            <div class="text-sm text-gray-900 font-light whitespace-nowrap flex gap-2 py-4 flex justify-between">
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Zapisz</button>
+                <a href="{{ route('users.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Wróć</a>
+            </div>
         </form>
     </div>
 </x-app-layout>
+<script type="text/javascript">
+    function allPermission(oInput)
+    {
+        var checkboxes = document.querySelectorAll('input[class="permission"]');
+        if(event.target.checked == true){
+            for (var i = 0; i < checkboxes.length; i++) {
+             if (checkboxes[i].type == 'checkbox')
+               checkboxes[i].checked = true;
+            }
+        }else {
+            for (var i = 0; i < checkboxes.length; i++) {
+             if (checkboxes[i].type == 'checkbox')
+               checkboxes[i].checked = false;
+            }
+        }
+    }
+</script>
