@@ -45,6 +45,10 @@
                     <span class="text-danger text-left">{{ $errors->first('specialNumber') }}</span>
                 @endif
             </div>
+            <div class="mb-4">
+                <x-jet-label for="phone" value="{{ __('Telefon') }}" />
+                <x-jet-input id="phone" class="form-control" type="text" name="phone" value="{{ $user->phone }}" required autofocus autocomplete="phone" />
+            </div>
             <div class="mb-3">
                 <x-jet-label for="role" class="form-label" value="{{ __('Role') }}"/>
                 <select class="form-select appearance-none
@@ -81,3 +85,9 @@
         </form>
     </div>
 </x-app-layout>
+<script>
+    document.getElementById('phone').addEventListener('input', function (e) {
+      var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})/);
+      e.target.value = !x[2] ? x[1] :  x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '');
+    });
+</script>

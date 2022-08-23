@@ -107,9 +107,21 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user, UpdateUserRequest $request) 
+    public function update(Request $request, $id) 
     {
-        $user->update($request->validated());
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'required|string|max:30',
+            'specialNumber' => 'required|string|max:255',
+        ]);
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->specialNumber = $request->specialNumber;
+        $user->update();
 
         $user->syncRoles($request->get('role'));
 
