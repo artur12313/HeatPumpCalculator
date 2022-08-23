@@ -15,6 +15,14 @@
                     <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('reports.index')">
                         {{ __('Nowy raport') }}
                     </x-jet-nav-link>
+                    @role('admin')
+                    <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+                        {{ __('Users') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.index')">
+                        {{ __('Role') }}
+                    </x-jet-nav-link>
+                    @endrole
                     {{-- <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('calculator.index')">
                         {{ __('Kalkulator kredytowy') }}
                     </x-jet-nav-link> --}}
