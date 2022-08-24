@@ -15,14 +15,16 @@
                     <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('reports.index')">
                         {{ __('Nowy raport') }}
                     </x-jet-nav-link>
-                    @role('admin')
+                    @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Kierownik')
                     <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
                         {{ __('Użytkownicy') }}
                     </x-jet-nav-link>
+                    @endif
+                    @if(Auth::user()->role == 'Admin')
                     <x-jet-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.index')">
                         {{ __('Role') }}
                     </x-jet-nav-link>
-                    @endrole
+                    @endif
                     {{-- <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('calculator.index')">
                         {{ __('Kalkulator kredytowy') }}
                     </x-jet-nav-link> --}}
@@ -57,6 +59,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
+                @role('admin')
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="60">
@@ -71,7 +74,6 @@
                                     </button>
                                 </span>
                             </x-slot>
-
                             <x-slot name="content">
                                 <div class="w-60">
                                     <!-- Team Management -->
@@ -104,7 +106,8 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
-                @endif
+                    @endif
+                    @endrole
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -128,6 +131,10 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            {{-- @foreach(Auth::user()->roles as $role)
+                            {{$role->name}}
+                        @endforeach --}}
+                           @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Kierownik')
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Ustawienia') }}
                             </div>
@@ -140,6 +147,7 @@
                             <x-jet-dropdown-link href="{{ route('modules.index') }}">
                                 {{ __('Moduły') }}
                             </x-jet-dropdown-link>
+                            @endif
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Zarządzanie kontem') }}

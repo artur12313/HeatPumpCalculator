@@ -169,6 +169,10 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="w-full" id="fuelPriceArea" style="display: none">
+                        <x-jet-label for="fuelPrice" value="{{ __('Cena paliwa') }}" />
+                        <x-jet-input id="fuelPrice" class="block mt-1 w-full" type="text" name="fuelPrice" required autofocus onchange="getvalue()"/>
+                    </div>
                     <div class="w-full">
                         <x-jet-label for="electricPrice" value="{{ __('Koszt wytworzenia 1kWh energii elektrycznej') }}" />
                         <x-jet-input id="electricPrice" class="block mt-1 w-full" type="number" name="electricPrice" step="any" required autofocus />
@@ -364,7 +368,7 @@
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="number" name="costHeatingPump" required autofocus disabled/>
                     </div>
                     <div class="w-full">
-                        <x-jet-label for="annualSavings" value="{{ __('Roczny koszt ogrzewania domu pompą ciepła') }}" />
+                        <x-jet-label for="annualSavings" value="{{ __('Oszczędność roczna to ok:') }}" />
                         <x-jet-input id="annualSavings" class="form-control
                         block
                         w-full
@@ -522,6 +526,9 @@
             let annualSavingsOperation = (costHeatingFuelOperation - costHeatingPump);
             annualSavings.value = annualSavingsOperation.toFixed(2);
 
+            //fuelPrice
+            let fuelPriceinput = document.getElementById('fuelPrice').value = fuelPrice;
+            let fuelPriceArea = document.getElementById('fuelPriceArea').style.display = "block";
         }
     }
 </script>

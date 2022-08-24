@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -18,8 +19,15 @@ class UsersController extends Controller
      */
     public function index() 
     {
-        $users = User::latest()->paginate(10);
-
+        if(Auth::User()->role == 'Admin')
+        {
+            $users = User::all();
+        }else{
+            $users = User::whereNot(function ($query) {
+                $query->where('id', 2);
+            })->get();
+        }
+        
         return view('users.index', compact('users'));
     }
 
@@ -92,10 +100,21 @@ class UsersController extends Controller
      */
     public function edit(User $user) 
     {
+
+        if(Auth::User()->role == 'Admin')
+        {
+            $roles = Role::all();
+        }else
+        {
+            $roles = Role::whereNot(function ($query) {
+                $query->where('name', 'Admin');
+            })->get();
+        }
+
         return view('users.edit', [
             'user' => $user,
             'userRole' => $user->roles->pluck('name')->toArray(),
-            'roles' => Role::latest()->get()
+            'roles' => $roles
         ]);
     }
 
