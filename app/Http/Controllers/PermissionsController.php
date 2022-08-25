@@ -47,7 +47,7 @@ class PermissionsController extends Controller
         Permission::create($request->only('name'));
 
         return redirect()->route('permissions.index')
-            ->withSuccess(__('Permission created successfully.'));
+            ->withSuccess(__('Uprawnienie zostało utworzone pomyślnie.'));
     }
 
     /**
@@ -79,7 +79,7 @@ class PermissionsController extends Controller
         $permission->update($request->only('name'));
 
         return redirect()->route('permissions.index')
-            ->withSuccess(__('Permission updated successfully.'));
+            ->withSuccess(__('Uprawnienie zostało pomyślnie zaktualizowane.'));
     }
 
     /**
@@ -93,6 +93,6 @@ class PermissionsController extends Controller
         $permission->delete();
 
         return redirect()->route('permissions.index')
-            ->withSuccess(__('Permission deleted successfully.'));
+            ->withSuccess(__('Uprawnienie zostało pomyślnie usunięte.'));
     }
 }

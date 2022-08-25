@@ -22,20 +22,22 @@
     <table class="min-w-full">
         <thead class="border-b bg-gray-800">
         <tr>
+            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Lp.</th>
             <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Name</th>
             <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Guard</th> 
-            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left"></th> 
+            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-center">Narzędzia</th> 
         </tr>
         </thead>
         <tbody>
             @foreach($permissions as $permission)
-                <tr>
-                    <td>{{ $permission->name }}</td>
-                    <td>{{ $permission->guard_name }}</td>
-                    <td><a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info btn-sm">Edit</a></td>
-                    <td>
+                <tr class="bg-gray-100 border-b">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">{{ $loop->iteration }}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $permission->name }}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $permission->guard_name }}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex gap-2 justify-center">
+                        <a href="{{ route('permissions.edit', $permission->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                         <form method='DELETE' action="{{ route('permissions.destroy', $permission->id) }}" style='display:inline'>
-                            <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Usuń</button>
                         </form>
                     </td>
                 </tr>

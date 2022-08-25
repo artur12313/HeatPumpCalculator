@@ -24,6 +24,9 @@
                     <x-jet-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.index')">
                         {{ __('Role') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('permissions.index') }}" :active="request()->routeIs('permissions.index')">
+                        {{ __('Pozwolenia') }}
+                    </x-jet-nav-link>
                     @endif
                     {{-- <x-jet-nav-link href="{{ route('calculator.index') }}" :active="request()->routeIs('calculator.index')">
                         {{ __('Kalkulator kredytowy') }}

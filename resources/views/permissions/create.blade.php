@@ -6,7 +6,7 @@
             </h2>
         </div>
     </x-slot>
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-3">
         <form method="POST" action="{{ route('permissions.store') }}">
             @csrf
             <div class="mb-3">
@@ -15,15 +15,15 @@
                     type="text" 
                     class="form-control" 
                     name="name" 
-                    placeholder="Nazwa" required>
+                    placeholder="Nazwa" required />
 
                 @if ($errors->has('name'))
                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-primary">Zapisz</button>
-            <a href="{{ route('permissions.index') }}" class="btn btn-default">Wróć</a>
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Zapisz</button>
+            <a href="{{ route('permissions.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Wróć</a>
         </form>
     </div>
 </x-app-layout>
