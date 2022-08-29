@@ -71,7 +71,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->specialNumber = $request->specialNumber;
-        $user->password = Hash::make($request->password);
+        $user->password = $request->password;
         $user->save();
         
         return redirect()->route('users.index')->withSuccess(__('Użytkownik utworzony pomyślnie.'));
