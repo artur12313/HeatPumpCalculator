@@ -35,7 +35,7 @@
           </div>
         </div>
           <div class="md:w-1/3">
-            <x-jet-label for="price" value="{{ __('Cena (zł/kg)') }}"/>
+            <x-jet-label for="price" value="{{ __('Cena (zł)') }}"/>
             <input id="price" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" type="text" name="price" required autofocus value="{{$pump->comma_price}}"/>
           </div>
         </div>

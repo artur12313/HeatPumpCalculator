@@ -23,19 +23,19 @@
                 <div class="flex flex-row mt-4 justify-between mt-4 gap-4 justify-center">
                     <div class="w-full">
                         <x-jet-label for="clientName" value="{{ __('Imię i nazwisko') }}" />
-                        <x-jet-input id="clientName" class="block mt-1 w-full" type="text" name="clientName" required autofocus />
+                        <x-jet-input id="clientName" class="block mt-1 w-full" type="text" name="clientName" autofocus />
                     </div>
                     <div class="w-full">
                         <x-jet-label for="address" value="{{ __('Ulica nr') }}" />
-                        <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" required autofocus />
+                        <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" autofocus />
                     </div>
                     <div class="w-full">
                         <x-jet-label for="city" value="{{ __('Miejscowość') }}" />
-                        <x-jet-input id="city" class="block mt-1 w-full" type="text" name="city" required autofocus />
+                        <x-jet-input id="city" class="block mt-1 w-full" type="text" name="city" autofocus />
                     </div>
                     <div class="w-full">
                         <x-jet-label for="phone" value="{{ __('numer telefonu') }}" />
-                        <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" required autofocus />
+                        <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" autofocus />
                     </div>
                 </div>
             </div>

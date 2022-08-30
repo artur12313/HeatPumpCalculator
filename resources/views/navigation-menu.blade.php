@@ -134,9 +134,6 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            {{-- @foreach(Auth::user()->roles as $role)
-                            {{$role->name}}
-                        @endforeach --}}
                            @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Kierownik')
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Ustawienia') }}

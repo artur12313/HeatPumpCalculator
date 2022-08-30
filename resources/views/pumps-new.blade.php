@@ -34,7 +34,7 @@
         </div>
         <div class="flex mt-4 justify-between items-end gap-2">
           <div class="md:w-1/3">
-            <x-jet-label for="price" value="{{ __('Cena (zł/kg)') }}" />
+            <x-jet-label for="price" value="{{ __('Cena (zł)') }}" />
             <x-jet-input id="price" class="block mt-1 w-full" type="text" name="price" required autofocus />
           </div>
         </div>

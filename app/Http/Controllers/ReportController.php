@@ -42,10 +42,10 @@ class ReportController extends Controller
         $tax = 0.08 * $totalValue;
         $grossTotalValue = $totalValue + $tax;
 
-        $clientName = $request->clientName;
-        $address = $request->address;
-        $city = $request->city;
-        $phone = $request->phone;
+        $clientName = $request->clientName == '' ? ' ' : $request->clientName;
+        $address = $request->address == '' ? ' ' : $request->address;
+        $city = $request->city == '' ? ' ' : $request->city;
+        $phone = $request->phone == '' ? ' ' : $request->phone;
 
         $heatingArea = $request->heatingArea;
         $roomHeight = $request->roomHeight;
