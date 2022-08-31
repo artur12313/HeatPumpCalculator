@@ -81,6 +81,19 @@
                 @endif
             @endif
         </div>
+
+        <!-- Phone -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="phone" value="{{ __('Telefon') }}" />
+            <x-jet-input id="phone" type="text" class="mt-1 block w-full" wire:model.defer="state.phone" autocomplete="phone" />
+            <x-jet-input-error for="phone" class="mt-2" />
+        </div>
+        <!-- Special Number -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="specialNumber" value="{{ __('Nr. Pełnomocnictwa') }}" />
+            <x-jet-input id="specialNumber" type="text" class="mt-1 block w-full" wire:model.defer="state.specialNumber" autocomplete="hspecialNumberone" />
+            <x-jet-input-error for="specialNumber" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">
@@ -93,3 +106,9 @@
         </x-jet-button>
     </x-slot>
 </x-jet-form-section>
+<script>
+    document.getElementById('phone').addEventListener('input', function (e) {
+      var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})/);
+      e.target.value = !x[2] ? x[1] :  x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '');
+    });
+</script>
