@@ -1,4 +1,4 @@
-@props(['title' => __('Confirm Password'), 'content' => __('For your security, please confirm your password to continue.'), 'button' => __('Confirm')])
+@props(['title' => __('Confirm Password'), 'content' => __('Ze względów bezpieczeństwa potwierdź hasło, aby kontynuować.'), 'button' => __('Confirm')])
 
 @php
     $confirmableId = md5($attributes->wire('then'));
@@ -17,14 +17,14 @@
 @once
 <x-jet-dialog-modal wire:model="confirmingPassword">
     <x-slot name="title">
-        {{ $title }}
+        {{-- {{ $title }} --}} Potwierdź Hasło
     </x-slot>
 
     <x-slot name="content">
         {{ $content }}
 
         <div class="mt-4" x-data="{}" x-on:confirming-password.window="setTimeout(() => $refs.confirmable_password.focus(), 250)">
-            <x-jet-input type="password" class="mt-1 block w-3/4" placeholder="{{ __('Password') }}"
+            <x-jet-input type="password" class="mt-1 block w-3/4" placeholder="{{ __('Hasło') }}"
                         x-ref="confirmable_password"
                         wire:model.defer="confirmablePassword"
                         wire:keydown.enter="confirmPassword" />
@@ -35,11 +35,11 @@
 
     <x-slot name="footer">
         <x-jet-secondary-button wire:click="stopConfirmingPassword" wire:loading.attr="disabled">
-            {{ __('Cancel') }}
+            {{ __('Anuluj') }}
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-3" dusk="confirm-password-button" wire:click="confirmPassword" wire:loading.attr="disabled">
-            {{ $button }}
+            {{-- {{ $button }} --}}Potwierdź
         </x-jet-button>
     </x-slot>
 </x-jet-dialog-modal>
