@@ -49,7 +49,7 @@
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{$item->updated_at}}</td>
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex gap-2">
                 <a href="{{route('modules.edit', $item->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edytuj</a>
-                <form action="{{route('pump.destroy', $item->id)}}" method="POST">
+                <form action="{{route('modules.destroy', $item->id)}}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Usuń</button>

@@ -69,6 +69,6 @@ class ModuleController extends Controller
     public function destroy(Request $request, $id)
     {
         Module::destroy($id);
-        return retirect()->route('pump.index')->with(['success', 'Pomyślnie usunięto moduł']);
+        return redirect()->route('modules.index')->with(['success', 'Pomyślnie usunięto moduł']);
     }
 }
