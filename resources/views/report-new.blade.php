@@ -174,8 +174,8 @@
                         <x-jet-input id="fuelPrice" class="block mt-1 w-full" type="text" name="fuelPrice" required autofocus onchange="getvalue()"/>
                     </div>
                     <div class="w-full">
-                        <x-jet-label for="electricPrice" value="{{ __('Koszt wytworzenia 1kWh energii elektrycznej') }}" />
-                        <x-jet-input id="electricPrice" class="block mt-1 w-full" type="number" name="electricPrice" step="any" required autofocus />
+                        <x-jet-label for="electricPrice" value="{{ __('Cena 1kWh energii elektrycznej') }}" />
+                        <x-jet-input id="electricPrice" class="block mt-1 w-full" type="number" name="electricPrice" step="any" placeholder="0.75" required autofocus />
                     </div>
                 </div>
                 <div class="mt-4 gap-4 flex flex-col">
