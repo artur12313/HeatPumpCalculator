@@ -135,6 +135,26 @@ class UsersController extends Controller
             'specialNumber' => 'required|string|max:255',
         ]);
 
+        $checkEmail = User::where('email', $request->email)->where('id', '!=', $id)->first();
+        if($checkEmail){
+            $user = User::find($id);
+            if(Auth::User()->role == 'Admin')
+            {
+                $roles = Role::all();
+            }else
+            {
+                $roles = Role::whereNot(function ($query) {
+                    $query->where('name', 'Admin');
+                })->get();
+            }
+            return view('users.edit')->with([
+                'user' => $user,
+                'userRole' => $user->roles->pluck('name')->toArray(),
+                'roles' => $roles,
+                'error' => 'Ten adres email jest już zajęty.'
+            ]);
+        }
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;

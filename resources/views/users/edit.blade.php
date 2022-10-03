@@ -7,7 +7,15 @@
         </div>
     </x-slot>
     <div class="container mx-auto mt-4">
-
+        @if ($error)
+                <div class="border border-red-400 rounded bg-red-100 px-4 py-3 text-red-700" role="alert">
+                    <div class="flex items-center">
+                    <div>
+                        <p class="text-sm font-bold">{{ $error }}</p>
+                    </div>
+                    </div>
+                </div>
+        @endif
         <form method="POST" action="{{ route('users.update', $user->id) }}">
             @method('patch')
             @csrf
