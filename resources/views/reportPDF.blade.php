@@ -159,6 +159,12 @@
               <td></td>
             </tr>
             @endif
+            @if($tube != 0)
+              <tr>
+                <td>Rura preizolowana {{ $tube }}mb</td>
+                <td>{{ $tubeSummary }} zł</td>
+              </tr>
+              @endif
           </tbody>
           <tfoot>
             <tr>
@@ -175,7 +181,7 @@
           </thead>
           <tbody>
             <tr><td>Wartość systemu netto</td><td><strong>{{ number_format($totalValue, 2, ',','') }} zł</strong></td></tr>
-            <tr><td>VAT 8%</td><td><strong>{{ number_format($tax, 2, ',','')}} zł</strong></td></tr>
+            <tr><td>VAT {{ ($taxValueInput * 100) }}%</td><td><strong>{{ number_format($tax, 2, ',','')}} zł</strong></td></tr>
             <tr><td>Cena zestawu brutto</td><td><strong>{{ number_format($grossTotalValue, 2, ',','')}} zł</strong></td></tr>
           </tbody>
         </table>

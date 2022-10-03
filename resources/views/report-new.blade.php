@@ -175,7 +175,7 @@
                     </div>
                     <div class="w-full">
                         <x-jet-label for="electricPrice" value="{{ __('Cena 1kWh energii elektrycznej') }}" />
-                        <x-jet-input id="electricPrice" class="block mt-1 w-full" type="number" name="electricPrice" step="any" placeholder="0.75" required autofocus />
+                        <x-jet-input id="electricPrice" class="block mt-1 w-full" type="number" name="electricPrice" step="any" min="0" placeholder="np: 0.75" required autofocus />
                     </div>
                 </div>
                 <div class="mt-4 gap-4 flex flex-col">
@@ -269,6 +269,34 @@
                             <option value="-20">-20</option>
                         </select>
                     </div>
+                    <div>
+                        <x-jet-label for="tax" value="{{ __('Stawka VAT') }}" />
+                        <select id="tax" name="tax" class="form-select appearance-none
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+                            <option value="0.08">8%</option>
+                            <option value="0.23">23%</option>
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <x-jet-label for="tube" value="{{ __('Rura preizolowana ( w gruncie ) - pierwsze 2mb (+2000,00zł) każdy następny mb (+350,00zł)') }}" />
+                        <div class="flex gap-2">
+                            <x-jet-input id="tube" class="block mt-1 md:w-1/2" type="number" min="0" name="tube" value="0" onchange="getvalue()" autofocus />
+                            <x-jet-input id="tubeArea" class="block mt-1 md:w-1/2 bg-lime-300 mt-1" type="text" name="tubeArea" disabled style="display:none;" />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-4 mt-6">
@@ -286,7 +314,7 @@
                 <div class="mt-4 gap-4 flex flex-col">
                     <div class="w-full">
                         <x-jet-label for="numberOfPeople" value="{{ __('Ilość mieszkańców na stałe') }}" />
-                        <x-jet-input id="numberOfPeople" class="block mt-1 w-full" type="number" name="numberOfPeople" required autofocus onchange="getvalue()"/>
+                        <x-jet-input id="numberOfPeople" class="block mt-1 w-full" type="number" name="numberOfPeople" min="0" required autofocus onchange="getvalue()"/>
                     </div>
                     <div>
                         <div class="w-full">
@@ -529,6 +557,26 @@
             //fuelPrice
             let fuelPriceinput = document.getElementById('fuelPrice').value = fuelPrice;
             let fuelPriceArea = document.getElementById('fuelPriceArea').style.display = "block";
+
+            // tube
+            let tube = document.getElementById('tube').value;
+            let tubeArea = document.getElementById('tubeArea');
+            tubeArea.style.display = "block";
+            var tubeSummary = 0;
+
+            if(tube == 0)
+            {
+                tubeArea.value = 0;
+                
+            }else if(tube > 0 && tube <= 2)
+            {
+                tubeArea.value = 2000;
+            }
+            else if(tube > 2)
+            {
+                this.tubeSummary = ((tube - 2) * 350) + 2000;
+                tubeArea.value = this.tubeSummary;
+            }
         }
     }
 </script>

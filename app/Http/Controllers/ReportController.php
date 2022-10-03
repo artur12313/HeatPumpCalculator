@@ -37,9 +37,28 @@ class ReportController extends Controller
                 $modulesTotalValue += $item->price;
             }
         }
+
+        $tube = $request->tube; 
+
+        if($tube == 0)
+        {
+            $tubeSummary = 0;
+            
+        }else if($tube > 0 && $tube <= 2)
+        {
+            $tubeSummary = 2000;
+        }
+        else if($tube > 2)
+        {
+            $tubeSummary = (($tube - 2) * 350) + 2000;
+        }
+
+
+        $modulesTotalValue = $modulesTotalValue + $tubeSummary;
         
         $totalValue = $modulesTotalValue + $pump->price;
-        $tax = 0.08 * $totalValue;
+        $taxValueInput = $request->tax;
+        $tax = $taxValueInput * $totalValue;
         $grossTotalValue = $totalValue + $tax;
 
         $clientName = $request->clientName == '' ? ' ' : $request->clientName;
@@ -88,9 +107,12 @@ class ReportController extends Controller
             'modulesTotalValue' => $modulesTotalValue,
             'totalValue' => $totalValue,
             'tax' => $tax,
+            'taxValueInput' => $taxValueInput,
             'grossTotalValue' => $grossTotalValue,
             'reportID' => $reportID,
-            'pic' => $pic
+            'pic' => $pic,
+            'tube' => $tube,
+            'tubeSummary' => $tubeSummary,
         ])->stream($reportID." | ".$clientName.".pdf");
     }
 }
